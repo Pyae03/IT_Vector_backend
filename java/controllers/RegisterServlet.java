@@ -1,7 +1,6 @@
 package controllers;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -15,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import dao.UserDao;
 import models.User;
 
-@WebServlet("/controllers/register")
+@WebServlet("/RegisterServlet")
 public class RegisterServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username = request.getParameter("username");
@@ -24,6 +23,7 @@ public class RegisterServlet extends HttpServlet {
         String gender = request.getParameter("gender");
         String DOB = request.getParameter("date-of-brith");
         
+        System.out.println("dob: " + DOB);
         
         
         Date dateOfBrith = null;
@@ -43,9 +43,6 @@ public class RegisterServlet extends HttpServlet {
 			}
 			
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

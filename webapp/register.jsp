@@ -53,7 +53,7 @@
 					<h2>Hey, Hello 👋</h2>
 					<p>Enter the information for registering</p>
 				</div>
-				<form action="/controllers/register" method="post">
+				<form action="RegisterServlet" method="post">
 					<input
 						name="username"
 						type="text"
@@ -83,7 +83,8 @@
 
 					<input
 						type="date"
-						id="date-of-birth" />
+						id="date-of-birth"
+						name="date-of-brith" />
 					<label for="date-of-birth">Date Of Birth</label>
 
 					<div class="remember">

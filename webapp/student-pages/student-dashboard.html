@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<link
+			rel="stylesheet"
+			href="user-side-bar.style.css" />
+		<link
+			rel="stylesheet"
+			href="student-dashboard.style.css" />
+
+		<link
+			rel="stylesheet"
+			href="helper.css" />
+
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0" />
+		<title>IT_Vector | NavBar</title>
+	</head>
+	<body>
+		<nav>
+			<div class="logo">
+				<img
+					src="image/logo.svg"
+					alt="" />
+				<h2>IT_Vector</h2>
+			</div>
+
+			<div class="notification">
+				<img
+					src="image/notification.svg"
+					alt="" />
+			</div>
+			<div class="user-profile">
+				<a href="../user-profile/user-profile.html">
+					<img
+						src="image/user-default.svg"
+						alt="" />
+				</a>
+			</div>
+		</nav>
+		<div class="side-bar-and-main">
+			<!-- this is side bar -->
+			<div class="side-bar">
+				<div class="outer-1 active selected">
+					<a href="student-dashboard.html">
+						<div class="element">
+							<img
+								src="image/dashboard.svg"
+								alt="" />
+							<p>Dashboard</p>
+						</div>
+					</a>
+				</div>
+				<div class="outer-2">
+					<a href="student-course.html">
+						<div class="element">
+							<img
+								src="image/course.svg"
+								alt="" />
+							<p>Courses</p>
+						</div>
+					</a>
+				</div>
+				<div class="outer-3">
+					<a href="student-todo.html">
+						<div class="element">
+							<img
+								src="image/todo.svg"
+								alt="" />
+							<p>To do</p>
+						</div>
+					</a>
+				</div>
+				<div class="outer-4">
+					<div class="element">
+						<img
+							src="images/setting.svg"
+							alt="" />
+						<p>Setting</p>
+					</div>
+				</div>
+			</div>
+
+			<!-- this is main  -->
+			<main>
+				<div class="progress container">
+					<div class="card">
+						<p>Course in Progress <span>120</span></p>
+						<img
+							src="image/course.svg"
+							alt="" />
+					</div>
+					<div class="card">
+						<p>Course Completed <span>100</span></p>
+						<img
+							src="image/course.svg"
+							alt="" />
+					</div>
+					<div class="card">
+						<p>Certificate Earned <span>3</span></p>
+						<img
+							src="image/certificate.svg"
+							alt="" />
+					</div>
+					<div class="card">
+						<p>Achievements <span>10</span></p>
+						<img
+							src="image/achievement.svg"
+							alt="" />
+					</div>
+				</div>
+
+				<!-- first component my course -->
+				<div class="tracker-components">
+					<div class="my-course">
+						<div class="course-title">
+							<h2>My Course</h2>
+							<a
+								href="#"
+								class="btn-view-course-title"
+								>View All</a
+							>
+						</div>
+
+						<div class="course-group">
+							<div class="course">
+								<img
+									src=""
+									alt="" />
+								<p>Web Development</p>
+								<p>30%</p>
+							</div>
+							<div class="course">
+								<img
+									src=""
+									alt="" />
+								<p>Introducation to computer science</p>
+								<p>30%</p>
+							</div>
+						</div>
+					</div>
+
+					<!-- todo deadline component -->
+					<div class="todo">
+						<div class="todo-title">
+							<h2>ToDo</h2>
+							<a
+								href="#"
+								class="btn-view-todo-title"
+								>View All</a
+							>
+						</div>
+
+						<div class="todo-deadline-group">
+							<div class="todo-deadline">
+								<h3>Assignment-1</h3>
+								<p>12-8-2023</p>
+								<div class="teacher">
+									<img
+										src="image/user-default.svg"
+										alt="" />
+									<a href="#">Pyae Hein</a>
+								</div>
+							</div>
+							<div class="todo-deadline">
+								<h3>Assignment-1</h3>
+								<p>12-8-2023</p>
+								<div class="teacher">
+									<img
+										src="image/user-default.svg"
+										alt="" />
+									<a href="#">Pyae Hein</a>
+								</div>
+							</div>
+							<div class="todo-deadline">
+								<h3>Assignment-1</h3>
+								<p>12-8-2023</p>
+								<div class="teacher">
+									<img
+										src="image/user-default.svg"
+										alt="" />
+									<a href="#">Pyae Hein</a>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- test result -->
+					<div class="test-result">
+						<div class="test-result-title">
+							<h2>Test Result</h2>
+							<a
+								href="#"
+								class="btn-view-test-result-title"
+								>View All</a
+							>
+						</div>
+						<div class="test-result-group">
+							<div class="test-result-card">
+								<h3>Quiz-1</h3>
+								<p>12-8-2023</p>
+								<p>100%</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</main>
+		</div>
+
+		<script>
+			const my_course = document.querySelector(".my-course");
+			const todo = document.querySelector(".todo");
+			const test_result = document.querySelector(".test-result");
+
+			// let myBtn = [
+			// 	btn_view_title,
+			// 	btn_view_todo_title,
+			// 	btn_view_test_result_title,
+			// ];
+			// myBtn.forEach((element) => {
+			// 	element.addEventListener("click", (event) => {
+			// 		console.log(event);
+			// 	});
+			// });
+
+			// todo: write view all function
+			function viewAll(e) {
+				className = e.target.className;
+				switch (className) {
+					case "btn-view-course-title":
+						{
+							my_course.classList.add("expand");
+							todo.classList.toggle("hidden");
+							test_result.classList.toggle("hidden");
+						}
+						break;
+					case "btn-view-todo-title":
+						{
+							my_course.classList.add("expand");
+							todo.classList.add("expand");
+							test_result.classList.toggle("hidden");
+						}
+						break;
+					case "btn-view-test-result-title":
+						{
+							my_course.classList.toggle("hidden");
+							todo.classList.toggle("hidden");
+							test_result.classList.add("hidden");
+						}
+						break;
+				}
+			}
+		</script>
+	</body>
+</html>

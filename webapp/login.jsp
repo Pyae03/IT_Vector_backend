@@ -53,7 +53,7 @@
 					<h2>Hey, Hello 👋</h2>
 					<p>Enter the information you entered while registering</p>
 				</div>
-				<form action="">
+				<form action="LoginServlet" method="GET">
 					<input
 						name="email"
 						type="email"
