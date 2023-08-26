@@ -46,11 +46,12 @@ public class QuizDao {
                         questionsWithOptions.put(questionID, question);
                     }
 
-                    // Add the option to the corresponding question
+                    // Add the option to the corresponding question if the same question until next quesiton
                     QuizQuestion question = questionsWithOptions.get(questionID);
                     question.addOption(new QuizOption(quizOptionID, questionID, optionText, isCorrect));
                 
-            
+            // use hashmap 
+            // to keep the question and option together
 
 //            return questionsWithOptions;
             }
