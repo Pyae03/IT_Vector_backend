@@ -1,0 +1,155 @@
+@charset "UTF-8";
+
+:root {
+	--bg-color: #eff3f9;
+	--white-color: #fff;
+	--light-purple: #9db7fb;
+	--btn-border-radius: 0.5em;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+img,
+picture,
+svg,
+video {
+	display: block;
+	max-width: 100%;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	font-family: "Nunito", "Lato";
+	color: #283747;
+}
+
+/* html {
+	color-scheme: dark light;
+} */
+
+body {
+	min-height: 100vh;
+}
+
+/* input, textarea, button, select {
+
+} */
+
+@media (min-width: 1440px) {
+	body {
+		background-color: var(--bg-color);
+
+		display: flex;
+		position: relative;
+		justify-content: center;
+		align-items: center;
+	}
+	.container {
+		box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+		width: 65em;
+		height: 40em;
+		background-color: var(--white-color);
+
+		display: flex;
+		/* position: relative;
+		justify-content: center;
+		align-items: center; */
+		border-radius: var(--btn-border-radius);
+	}
+	.wrapper-1 {
+		flex: 0.5;
+		width: 100%;
+		background-image: linear-gradient(
+			to left top,
+			#eff3f9,
+			#dee9fa,
+			#cedefc,
+			#bfd4fd,
+			#b0c9fe,
+			#a6c4fe,
+			#9dbfff,
+			#92baff,
+			#87baff,
+			#7cb9ff,
+			#6fb9ff,
+			#60b9ff
+		);
+		border-top-left-radius: var(--btn-border-radius);
+		border-bottom-left-radius: var(--btn-border-radius);
+
+		display: flex;
+		position: relative;
+		justify-content: center;
+		align-items: center;
+	}
+	.wrapper-1 .box {
+		background-color: var(--bg-white);
+		box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+		padding: 1em 1.7em 1em 5em;
+		width: 70%;
+
+		background: rgba(255, 255, 255, 0.25);
+		box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+		backdrop-filter: blur(9.5px);
+		-webkit-backdrop-filter: blur(9.5px);
+		border-radius: 10px;
+		border: 1px solid rgba(255, 255, 255, 0.18);
+	}
+	.wrapper-1 .box h1 {
+		display: table-caption;
+	}
+
+	.wrapper-2 {
+		flex: 0.5;
+		display: flex;
+		flex-direction: column;
+	}
+	.wrapper-2 > div,
+	form {
+		padding: 2em 6.2em 0em 6.2em;
+	}
+	.wrapper-2 .welcome {
+		display: flex;
+		flex-direction: column;
+		gap: 0.3em;
+	}
+	.wrapper-2 .welcome > img {
+		width: 50px;
+	}
+	.wrapper-2 form {
+		display: flex;
+		flex-direction: column;
+
+		padding-top: 0;
+	}
+	.wrapper-2 form label,
+	.wrapper-2 form input {
+		height: 2.5em;
+	}
+	.wrapper-2 form label {
+	}
+	input:focus ~ label {
+	}
+	.wrapper-2 .remember {
+		display: flex;
+		justify-content: space-between;
+	}
+	input[type="submit"] {
+		background-color: var(--light-purple);
+		border: none;
+		border-radius: var(--btn-border-radius);
+		color: var(--white-color);
+		font-size: 1em;
+	}
+
+	select {
+		font-size: 1.1em;
+		height: 2.5em;
+		margin-bottom: 1em;
+	}
+}

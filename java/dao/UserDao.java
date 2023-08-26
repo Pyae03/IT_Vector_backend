@@ -12,9 +12,27 @@ public class UserDao {
 
     // SQL queries for CRUD operations
 
-    public User createUser(User user) {
-		return user;
-        // Implement user creation
+    public static boolean createUser(User user) throws SQLException {
+    	
+    	try (Connection connection = DatabaseUtil.getConnection()){
+    		
+    		
+    		PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO User (UserID, Username, Password, Email, DateOfBirth, Gender, UserRole)\r\n"
+    				+ "VALUES (LEFT(UUID(), 16),"
+    				+ " "+ user.getUsername() +"\', "
+    				+ "\'"+ user.getPassword() +"\', "
+    				+ "\'"+ user.getEmail() +"\', "
+    				+ "\'"+ user.getDateOfBirth() +"\', "
+    				+ "\'"+ user.getGender() +"\', "
+    				+ "'Student');");
+    		
+    		 int rowsAffected = preparedStatement.executeUpdate();
+    		 System.out.println("row affected: " + rowsAffected);
+    		return true;
+    	}
+    	catch(Exception error) {
+    		return false;
+    	}
     }
 
     public User getUserById(int id) {
