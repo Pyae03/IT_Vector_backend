@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<link
+			rel="stylesheet"
+			href="admin-event.style.css" />
+		<link
+			rel="stylesheet"
+			href="admin-nav-bar.style.css" />
+
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<nav>
+			<div class="logo">
+				<img
+					src="image/logo.svg"
+					alt="" />
+				<h2>IT_Vector</h2>
+			</div>
+
+			<div class="view-options">
+				<a
+					href="admin-dashboard.html"
+					class=""
+					>DashBoard</a
+				>
+				<a
+					href="admin-achievement.html"
+					class=""
+					>Achievements</a
+				>
+				<a
+					href="admin-event.html"
+					class="active"
+					>Event</a
+				>
+				<a
+					href="admin-database.html"
+					class=""
+					>User Info</a
+				>
+			</div>
+
+			<div class="user-tool">
+				<div class="search-bar">
+					<input
+						type="search"
+						name="search" />
+					<input
+						type="submit"
+						value="search" />
+				</div>
+				<div class="setting">
+					<img
+						src="image/setting.svg"
+						alt="" />
+				</div>
+				<div class="user-profile">
+					<img
+						src="image/user-default.svg"
+						alt="" />
+				</div>
+			</div>
+		</nav>
+
+		<!-- create event form -->
+		<div class="event">
+			<div class="event-creation">
+				<div class="view-title">
+					<img
+						src="image/Event.svg"
+						alt="" />
+					<h2>Event</h2>
+				</div>
+
+				<button class="btn-create">Create</button>
+			</div>
+
+			<div class="event-form hidden">
+				<form action="">
+					<label for="event-name">Title</label>
+					<input
+						type="text"
+						name="event-name" />
+					<label for="event-date">Date</label>
+					<input
+						type="date"
+						name="event-date" />
+					<label for="event-type">Type</label>
+					<input
+						type="text"
+						name="event-type" />
+
+					<label for="event-desc">Description</label>
+					<textarea
+						name="event-desc"
+						id=""
+						cols="30"
+						rows="10"></textarea>
+
+					<div class="btn-group">
+						<input
+							type="submit"
+							value="Create" />
+						<button type="reset">Clear</button>
+					</div>
+				</form>
+			</div>
+
+			<div class="event-list">
+				<div class="event-card">
+					<h3>Event Title: How to be a Computer Scientist</h3>
+					<p>Date: 18-8-2023</p>
+					<p>Type: Computer Science</p>
+					<button
+						id="expand"
+						class="">
+						Expand
+					</button>
+					<article class="event-description hidden">
+						<p>
+							Discussing how to become a computer scientist involves sharing insights and guidance on the educational journey and skills development required to excel in the field. It covers aspects such as pursuing relevant degrees, specializing in specific areas, conducting research, attending conferences, networking, and continuous learning. Conversations about becoming a computer scientist aim to provide valuable information and advice to individuals aspiring to enter this dynamic and evolving profession.
+						</p>
+					</article>
+				</div>
+			</div>
+		</div>
+		<!-- add form creation features with js -->
+		<script>
+			const expand = document.getElementById("expand");
+			const event_description = document.querySelector(".event-description");
+			expand.addEventListener("click", () => {
+				event_description.classList.toggle("hidden");
+			});
+
+			// for event creation
+			const event_form = document.querySelector(".event-form");
+			const btn_create = document.querySelector(".btn-create");
+			btn_create.addEventListener("click", () => {
+				event_form.classList.toggle("hidden");
+				if (btn_create.innerText === "Create") {
+					btn_create.style.backgroundColor = "var(--red)";
+					return (btn_create.innerText = "Cancel");
+				}
+
+				btn_create.style.backgroundColor = "var(--light-blue)";
+				return (btn_create.innerHTML = "Create");
+			});
+		</script>
+	</body>
+</html>

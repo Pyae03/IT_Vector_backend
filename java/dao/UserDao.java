@@ -51,7 +51,7 @@ public class UserDao {
     }
 
  // Method to retrieve all users from the database
-    public List<User> getAllUsers() {
+    public static List<User> getAllUsers() {
         List<User> users = new ArrayList<>();
         try (Connection connection = DatabaseUtil.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM User");

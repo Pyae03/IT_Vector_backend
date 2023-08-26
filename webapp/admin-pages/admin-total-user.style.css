@@ -1,0 +1,67 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400&family=Nunito:wght@200;300;400&display=swap");
+
+:root {
+	--bg-color: #eff3f9;
+	--white-color: #fff;
+	--light-purple: #9db7fb;
+	--light-blue: #60b9ff;
+	--dark-blue: #283747;
+	--light-gray: #eaecee;
+	--btn-border-radius: 0.5em;
+	--light-gray2: #d5d8dc;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+img,
+picture,
+svg,
+video {
+	display: block;
+	max-width: 100%;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	font-family: "Nunito", "Lato";
+	color: #283747;
+}
+
+body {
+	min-height: 100vh;
+}
+
+@media (min-width: 1440px) {
+	.btn-crud {
+		display: flex;
+		gap: 1em;
+		font-size: 1.5em;
+	}
+	.btn-edit::before,
+	.btn-delete::before {
+		content: "";
+		transition: 0.3s ease;
+		position: absolute;
+	}
+	.btn-edit:hover::before,
+	.btn-delete:hover::before {
+		content: "Edit";
+		position: absolute;
+		background-color: #283747;
+		color: white;
+		font-size: 0.65em;
+		margin-top: -1.5em;
+		padding: 0.2em;
+		border-radius: 0.5em;
+		transition: 0.3s ease;
+	}
+
+	.btn-delete:hover::before {
+		content: "Delete";
+	}
+}
