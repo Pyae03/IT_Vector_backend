@@ -14,9 +14,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import Util.DatabaseUtil;
 import models.QuizOption;
 import models.QuizQuestion;
+import util.DatabaseUtil;
 
 @WebServlet("/SubmitQuizServlet")
 public class SubmitQuizServlet extends HttpServlet {

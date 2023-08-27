@@ -7,9 +7,9 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
-import Util.DatabaseUtil;
 import models.QuizOption;
 import models.QuizQuestion;
+import util.DatabaseUtil;
 
 public class QuizDao {
 

@@ -6,8 +6,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import Util.DatabaseUtil;
+import util.DatabaseUtil;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -35,6 +36,17 @@ public class LoginServlet extends HttpServlet {
 
         if (isValidUser) {
         	
+        	// for session
+        	HttpSession session = request.getSession(true);
+        	
+        	session.setAttribute("email", email);
+            session.setAttribute("isLoggedIn", true);
+        	
+            int sessionTimeOut = 7 * 24 * 60 * 60;
+            session.setMaxInactiveInterval(sessionTimeOut);
+            
+            
+            // for role Student, Teacher, Admin
         	switch(role) {
         	case "Student": response.sendRedirect("student-pages/student-dashboard.html"); break;
         	case "Teacher": response.sendRedirect("student-dashboard.jsp"); break;

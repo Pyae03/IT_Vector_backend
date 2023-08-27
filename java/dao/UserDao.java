@@ -5,8 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import Util.DatabaseUtil;
 import models.User;
+
+import util.DatabaseUtil;
 
 public class UserDao {
     
@@ -50,7 +51,7 @@ public class UserDao {
         // Implement user retrieval by ID
     }
 
- // Method to retrieve all users from the database
+ // retrieve all users from the database
     public static List<User> getAllUsers() {
         List<User> users = new ArrayList<>();
         try (Connection connection = DatabaseUtil.getConnection();

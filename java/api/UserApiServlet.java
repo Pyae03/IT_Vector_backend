@@ -25,8 +25,8 @@ public class UserApiServlet extends HttpServlet {
         response.setContentType("application/json");
         PrintWriter out = response.getWriter();
 
-        // Fetch user data from your database using a UserDao (you need to implement UserDao)
-        List<User> users = UserDao.getAllUsers(); // Example method to fetch all users
+        
+        List<User> users = UserDao.getAllUsers(); 
 
         // Convert user data to JSON using Gson
         Gson gson = new Gson();

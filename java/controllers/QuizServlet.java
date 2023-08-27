@@ -19,10 +19,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import Util.DatabaseUtil;
 import dao.QuizDao;
 import models.QuizOption;
 import models.QuizQuestion;
+import util.DatabaseUtil;
 
 @WebServlet("/QuizServlet")
 public class QuizServlet extends HttpServlet {

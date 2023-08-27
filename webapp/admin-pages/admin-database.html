@@ -31,7 +31,7 @@
 					class=""
 					>Achievements</a
 				>
-				<a href="admin-event.html">Event</a>
+				<a href="admin-courses.html">Course</a>
 				<a
 					href="admin-database.html"
 					class="active"
@@ -98,92 +98,94 @@
 
 				<!-- add users information from database in here -->
 				<!-- use loop to iterate each component -->
+				
 			</div>
 		</div>
 	</div>
 		</div>
 	</body>
+
 	
-			<script>
-		function fetchDataPOST() {
-			fetch('http://localhost:8080/IT_Vector_Ver1/UserApiServlet', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            //body: JSON.stringify(dataToSend)
-        })
-            
-            .then(response => response.json())
-            .then(users => {
-                
-                console.log(users);
-				users.forEach(user => {console.log("user: ", user.username, user.gender, user.dateOfBirth, user.userID, user.email)
-				createUserDetail(user.username, user.gender, user.dateOfBirth, user.userID, user.email)})
-                
-            })
-            .catch(error => {
-                console.error('Error fetching user data:', error);
-            });
-        }
-		fetchDataPOST()
+
+
+<script>
+	function fetchDataPOST() {
+		fetch('http://localhost:8080/IT_Vector_Ver1/UserApiServlet', {
+		method: 'GET',
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		//body: JSON.stringify(dataToSend)
+	})
 		
-		// for user-list
-		const user_list = document.querySelector(".user-list")
-		function createUserDetail(userName, gender, dateOfBirth, userID, email) {
+		.then(response => response.json())
+		.then(users => {
 			
-		const userDetailDiv = document.createElement('div');
-        userDetailDiv.classList.add('user-info-detail');
-
-        // Create the profile container
-        const profileDiv = document.createElement('div');
-        profileDiv.classList.add('profile');
-
-        // Create the anchor element
-        const profileLink = document.createElement('a');
-        profileLink.href = '#';
-
-        // Create the profile image
-        const profileImage = document.createElement('img');
-        profileImage.src = 'image/user-default.svg';
-        profileImage.alt = '';
-
-        // Create the user's name
-        const username = document.createElement('p');
-        username.textContent = userName;
-        
-
-        // Append image and name to the profile link
-        profileLink.appendChild(profileImage);
-        profileLink.appendChild(username);
-
-        // Append profile link to the profile container
-        profileDiv.appendChild(profileLink);
-
-        // Create and append user information paragraphs
-        const userGender = document.createElement('p');
-        userGender.textContent = gender;
-
-        const userDateOfBirth = document.createElement('p');
-        userDateOfBirth.textContent = dateOfBirth;
-
-        const userIdentification = document.createElement('p');
-        userIdentification.textContent = userID;
-
-        const userEmail = document.createElement('p');
-        userEmail.textContent = email;
-
-        // Append user information paragraphs to the main container
-        userDetailDiv.appendChild(profileDiv);
-        userDetailDiv.appendChild(userGender);
-        userDetailDiv.appendChild(userDateOfBirth);
-        userDetailDiv.appendChild(userIdentification);
-        userDetailDiv.appendChild(userEmail);
-
-        // Append the main container to the body of the HTML page
-        user_list.append(userDetailDiv);
-		}
-	</script>
-
+			console.log(users);
+			users.forEach(user => {console.log("user: ", user.username, user.gender, user.dateOfBirth, user.userID, user.email)
+			createUserDetail(user.username, user.gender, user.dateOfBirth, user.userID, user.email)})
+			
+		})
+		.catch(error => {
+			console.error('Error fetching user data:', error);
+		});
+	}
+	fetchDataPOST()
 	
+	// for user-list
+	const user_list = document.querySelector(".user-list")
+	function createUserDetail(userName, gender, dateOfBirth, userID, email) {
+		
+	const userDetailDiv = document.createElement('div');
+	userDetailDiv.classList.add('user-info-detail');
+
+	// Create the profile container
+	const profileDiv = document.createElement('div');
+	profileDiv.classList.add('profile');
+
+	// Create the anchor element
+	const profileLink = document.createElement('a');
+	profileLink.href = '#';
+
+	// Create the profile image
+	const profileImage = document.createElement('img');
+	profileImage.src = 'image/user-default.svg';
+	profileImage.alt = '';
+
+	// Create the user's name
+	const username = document.createElement('p');
+	username.textContent = userName;
+	
+
+	// Append image and name to the profile link
+	profileLink.appendChild(profileImage);
+	profileLink.appendChild(username);
+
+	// Append profile link to the profile container
+	profileDiv.appendChild(profileLink);
+
+	// Create and append user information paragraphs
+	const userGender = document.createElement('p');
+	userGender.textContent = gender;
+
+	const userDateOfBirth = document.createElement('p');
+	userDateOfBirth.textContent = dateOfBirth;
+
+	const userIdentification = document.createElement('p');
+	userIdentification.textContent = userID;
+
+	const userEmail = document.createElement('p');
+	userEmail.textContent = email;
+
+	// Append user information paragraphs to the main container
+	userDetailDiv.appendChild(profileDiv);
+	userDetailDiv.appendChild(userGender);
+	userDetailDiv.appendChild(userDateOfBirth);
+	userDetailDiv.appendChild(userIdentification);
+	userDetailDiv.appendChild(userEmail);
+
+	// Append the main container to the body of the HTML page
+	user_list.append(userDetailDiv);
+	}
+</script>
 </html>

@@ -1,0 +1,24 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Session Check</title>
+</head>
+<body>
+    <div id="sessionStatus"></div>
+    <button id="checkSession">Check Session</button>
+
+    <script>
+        document.getElementById("checkSession").addEventListener("click", function () {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    document.getElementById("sessionStatus").innerHTML = xhr.responseText;
+                }
+            };
+            xhr.open("GET", "http://localhost:8080/IT_Vector_Ver1/SessionCheckServlet", true);
+            xhr.send();
+        });
+    </script>
+</body>
+</html>
