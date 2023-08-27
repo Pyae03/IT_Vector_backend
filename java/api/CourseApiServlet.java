@@ -1,41 +1,51 @@
 package api;
 
 import java.io.IOException;
-import javax.servlet.ServletException;
+import java.util.List;
+
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class CourseApiServlet
- */
+import com.google.gson.Gson;
+
+import dao.CourseDao;
+import models.Course;
+
 @WebServlet("/CourseApiServlet")
 public class CourseApiServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public CourseApiServlet() {
-        super();
-        // TODO Auto-generated constructor stub
+    @Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+        //CourseDao courseDao = new CourseDao(DatabaseUtil.getConnection());
+        
+		try {
+			List<Course> courses = CourseDao.getAllCourses();
+			String jsonResponse = convertCoursesToJSON(courses);
+			
+			// Set response content type to JSON
+			response.setContentType("application/json");
+			
+			// Send the JSON response
+			response.getWriter().write(jsonResponse);
+			
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+
+
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
+    private String convertCoursesToJSON(List<Course> courses) {
+    	Gson gson = new Gson();
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
+        // Convert the list of courses to JSON
+        String json = gson.toJson(courses);
 
+        return json;
+
+    }
 }
+

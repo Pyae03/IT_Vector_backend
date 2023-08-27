@@ -6,7 +6,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DatabaseUtil {
-   
+
 
     public static Connection connection;
     // Use a ThreadLocal to manage connections per thread
@@ -32,9 +32,9 @@ public class DatabaseUtil {
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
-        
+
         return connection;
     }
 
-    
+
 }

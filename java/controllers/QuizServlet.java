@@ -2,17 +2,9 @@ package controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,20 +14,20 @@ import javax.servlet.http.HttpServletResponse;
 import dao.QuizDao;
 import models.QuizOption;
 import models.QuizQuestion;
-import util.DatabaseUtil;
 
 @WebServlet("/QuizServlet")
 public class QuizServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+
+    @Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
 
         try {
-            
+
 
             // Display the retrieved data
             Map<Integer, QuizQuestion> questionsWithOptions = QuizDao.getQuestionsWithOptions();
@@ -69,15 +61,15 @@ public class QuizServlet extends HttpServlet {
             out.println("</form>");
 
             out.println("</body></html>");
-            
-            
+
+
             // Collecting quiz
-            //List<QuizQuestion> quizzes = question; 
+            //List<QuizQuestion> quizzes = question;
             //request.setAttribute("quizzes", quizzes);
-            
+
             //RequestDispatcher dispatcher = request.getRequestDispatcher("/quiz-list.jsp");
             //dispatcher.forward(request, response);
-            
+
         } catch (SQLException e) {
             e.printStackTrace();
         }

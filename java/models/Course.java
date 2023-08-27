@@ -10,23 +10,24 @@ public class Course {
     private String teacher;
     private Date startDate;
     private Date endDate;
-	public void setCourseName(String string) {
-		// TODO Auto-generated method stub
-		
-	}
-	public void setCourseId(int int1) {
-		// TODO Auto-generated method stub
-		
-	}
+	
+	
 	public String getCourseId() {
 		return courseId;
 	}
 	public void setCourseId(String courseId) {
 		this.courseId = courseId;
 	}
+	public String getCourseName() {
+		return courseName;
+	}
+	public void setCourseName(String courseName) {
+		this.courseName = courseName;
+	}
 	public String getCourseCode() {
 		return courseCode;
 	}
+	
 	public void setCourseCode(String courseCode) {
 		this.courseCode = courseCode;
 	}

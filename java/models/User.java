@@ -22,7 +22,7 @@ public class User {
 
     public User(String username, String password, String email,
     		String gender, Date dateOfBirth) {
-    	
+
     	this.username = username;
         this.password = password;
         this.email = email;
@@ -30,6 +30,18 @@ public class User {
         this.dateOfBirth = dateOfBirth;
     }
     
+    public User(String username, String password, String email,
+    		String gender, String role, Date dateOfBirth) {
+
+    	this.username = username;
+        this.password = password;
+        this.email = email;
+        this.gender = gender;
+        this.userRole = role;
+        this.dateOfBirth = dateOfBirth;
+    }
+    
+
     public User(String userID, String username, String password, String email,
                 Date dateOfBirth, String gender, String bio, String userRole,
                 Date registrationDate) {
@@ -84,7 +96,7 @@ public class User {
     }
 
     public void setDateOfBirth(Date dateOfBirth) {
-    	
+
         this.dateOfBirth = dateOfBirth;
     }
 
@@ -119,14 +131,14 @@ public class User {
     public void setRegistrationDate(Date registrationDate) {
         this.registrationDate = registrationDate;
     }
-    
+
     public Date formatDate(Date date) throws ParseException {
-    	
+
 //		Date data = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		String formatedDate = sdf.format(date);
 		Date convertedDate = sdf.parse(formatedDate);
-		
+
 		return convertedDate;
     }
 }

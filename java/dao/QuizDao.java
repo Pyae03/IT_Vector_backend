@@ -13,23 +13,23 @@ import util.DatabaseUtil;
 
 public class QuizDao {
 
-	
+
 	// Query questions and options
     public static Map<Integer, QuizQuestion> getQuestionsWithOptions() throws SQLException {
-    	
+
     	try(Connection connection = DatabaseUtil.getConnection()){
-    		
+
     		Map<Integer, QuizQuestion> questionsWithOptions = new HashMap<>();
 
             String query = "SELECT qq.*, qo.* " +
                     "FROM QuizQuestion qq " +
                     "LEFT JOIN QuizOption qo ON qq.questionID = qo.questionID";
-            
+
             System.out.println("connection estiblished");
             System.out.println("connection: "  +connection);
             	PreparedStatement preparedStatement = connection.prepareStatement(query);
                 ResultSet resultSet = preparedStatement.executeQuery();
-                
+
                 while (resultSet.next()) {
                     int questionID = resultSet.getInt("qq.questionID");
                     int quizID = resultSet.getInt("qq.quizID");
@@ -49,8 +49,8 @@ public class QuizDao {
                     // Add the option to the corresponding question if the same question until next quesiton
                     QuizQuestion question = questionsWithOptions.get(questionID);
                     question.addOption(new QuizOption(quizOptionID, questionID, optionText, isCorrect));
-                
-            // use hashmap 
+
+            // use hashmap
             // to keep the question and option together
 
 //            return questionsWithOptions;

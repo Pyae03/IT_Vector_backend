@@ -20,38 +20,39 @@ public class CourseDao {
     // Insert a new course
     public boolean addCourse(Course course) {
 		return false;
-        
+
     }
 
     // Update an existing course
     public boolean updateCourse(Course course) {
 		return false;
-        
+
     }
 
     // Delete a course by its ID
     public boolean deleteCourse(int courseId) {
 		return false;
-        
+
     }
 
     // Retrieve a course by its ID
     public Course getCourseById(int courseId) {
 		return null;
-        
+
     }
 
     // Retrieve all courses
-    public static List<Course> getAllCourses() {
-    	
-    	List<Course> courses = null;
+    @SuppressWarnings("null")
+	public static List<Course> getAllCourses() {
+
+    	List<Course> courses = new ArrayList<>();
 		try (Connection connection = DatabaseUtil.getConnection();
                  PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM Course");
                  ResultSet resultSet = preparedStatement.executeQuery()) {
 
                 while (resultSet.next()) {
                     Course course = new Course();
-                    course.setCourseId(resultSet.getInt("courseID"));
+                    course.setCourseId(resultSet.getString("courseID"));
                     course.setCourseName(resultSet.getString("courseName"));
                     course.setCourseCode(resultSet.getString("courseCode"));
                     course.setFilePath(resultSet.getString("filePath"));
@@ -59,10 +60,12 @@ public class CourseDao {
                     course.setStartDate(resultSet.getDate("startDate"));
                     course.setEndDate(resultSet.getDate("endDate"));
 
+                    System.out.println("course: " + course);
                     courses.add(course);
                 }
             } catch (SQLException e) {
-                e.printStackTrace(); 
+            	System.out.println("This error");
+                e.printStackTrace();
             }
 			System.out.println("all courses: " + courses);
             return courses;

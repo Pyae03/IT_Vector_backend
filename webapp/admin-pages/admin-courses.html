@@ -68,51 +68,85 @@
 		</nav>
 
 		<div class="course-group">
-			<a
-				href=""
-				class="course-card">
-				<div>
-					<div class="course-card-title">
-						<h3>WD-101</h3>
-						<h2>Web Application Development</h2>
-					</div>
-
-					<div class="teacher">
-						<p>David</p>
-						<p>Brain</p>
-					</div>
-				</div>
-			</a>
-			<a
-				href=""
-				class="course-card">
-				<div>
-					<div class="course-card-title">
-						<h3>WD-101</h3>
-						<h2>Introduction to Computer Science</h2>
-					</div>
-
-					<div class="teacher">
-						<p>David</p>
-						<p>Brain</p>
-					</div>
-				</div>
-			</a>
-			<a
-				href=""
-				class="course-card">
-				<div class="">
-					<div class="course-card-title">
-						<h3>WD-101</h3>
-						<h2>Project Building</h2>
-					</div>
-
-					<div class="teacher">
-						<p>David</p>
-						<p>Brain</p>
-					</div>
-				</div>
-			</a>
+			<!-- add course-card in here from server -->
+			<!-- course card in here -->
 		</div>
 	</body>
+	
+	<script>
+const courseGroup = document.querySelector('.course-group'); // Replace with the actual container element where you want to add the course cards
+
+		const fetchOptions = {
+    method: 'GET',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+};
+
+// Fetch data from the servlet
+fetch('http://localhost:8080/IT_Vector_Ver1/CourseApiServlet', fetchOptions)
+    .then(response => response.json()) // Parse the JSON response
+    .then(courses => {
+		console.log("courses: ", courses)
+		// current is teacher id not teacher name.
+		// fix: teacher id to teacher name.
+		courses.forEach(course => createCourseCard(course.courseCode, course.courseName, course.teacher))		
+       
+	}
+       
+           
+  ).catch(error => {
+        console.error('Error fetching data:', error);
+    });
+  
+    
+    function createCourseCard(courseCode, courseName, teacher) {
+    
+    const courseCard = document.createElement('a');
+    courseCard.href = ''; // Add the href attribute here if needed
+    courseCard.classList.add('course-card');
+
+    const innerDiv = document.createElement('div');
+
+    const titleDiv = document.createElement('div');
+    titleDiv.classList.add('course-card-title');
+
+    const courseCodeHeading = document.createElement('h3');
+    courseCodeHeading.textContent = courseCode;
+
+    const courseNameHeading = document.createElement('h2');
+    courseNameHeading.textContent = courseName;
+
+    titleDiv.appendChild(courseCodeHeading);
+    titleDiv.appendChild(courseNameHeading);
+
+    const teacherDiv = document.createElement('div');
+    teacherDiv.classList.add('teacher');
+
+    const teacherName = document.createElement('p');
+    teacherName.textContent = teacher;
+
+    teacherDiv.appendChild(teacherName);
+    
+    innerDiv.appendChild(titleDiv);
+    innerDiv.appendChild(teacherDiv);
+
+    courseCard.appendChild(innerDiv);
+
+
+	// add click function to courseCard
+	courseCard.addEventListener("click", (e) => {
+		e.preventDefault()
+		courseCard.style.backgroundColor = "red"
+		console.log(courseCard)
+	})
+	return courseGroup.appendChild(courseCard);
+    
+}
+
+
+
+
+
+	</script>
 </html>

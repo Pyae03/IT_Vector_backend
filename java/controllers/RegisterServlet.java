@@ -16,22 +16,23 @@ import models.User;
 
 @WebServlet("/RegisterServlet")
 public class RegisterServlet extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    @Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String email = request.getParameter("email");
         String gender = request.getParameter("gender");
         String DOB = request.getParameter("date-of-brith");
-        
+
         System.out.println("dob: " + DOB);
-        
-        
+
+
         Date dateOfBrith = null;
 		try {
 			dateOfBrith = new SimpleDateFormat("yyyy-MM-dd").parse(DOB);
 			User newUser = new User(username, password, email, gender, dateOfBrith);
 			boolean userCreated;
-			
+
 			userCreated = UserDao.createUser(newUser);
 			System.out.println("userCreated: " + userCreated);
 			if (userCreated) {
@@ -41,13 +42,13 @@ public class RegisterServlet extends HttpServlet {
 				// Redirect to a registration error page
 				response.sendRedirect("/user-auth/login.jsp");
 			}
-			
+
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
-        
+
+
+
     }
 }

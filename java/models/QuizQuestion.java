@@ -8,7 +8,7 @@ public class QuizQuestion {
     private int quizID;
     private String questionText;
     private String categoryName;
-    
+
     private List<QuizOption> options = new ArrayList<>();
     // Constructors, getters, and setters
     // ...
@@ -41,8 +41,8 @@ public class QuizQuestion {
     }
 
 	public void addOption(QuizOption quizOption) {
-		
+
 		options.add(quizOption);
-		
+
 	}
 }

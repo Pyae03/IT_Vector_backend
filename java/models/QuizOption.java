@@ -10,7 +10,7 @@ public class QuizOption {
     // ...
 
     public QuizOption(int quizOptionID, int questionID, String optionText, boolean isCorrect) {
-		
+
     	this.quizOptionID = quizOptionID;
     	this.questionID = questionID;
     	this.optionText = optionText;
@@ -32,17 +32,17 @@ public class QuizOption {
 		// TODO Auto-generated method stub
 		return this.isCorrect;
 	}
-	
+
 	public int getOptionID() {
 		return this.quizOptionID;
 	}
 
-	
 
-	
 
-	
 
-	
+
+
+
+
 }
 

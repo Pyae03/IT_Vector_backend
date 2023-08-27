@@ -1,14 +1,17 @@
 package api;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
+
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import java.io.PrintWriter;
-import java.util.List;
-import com.google.gson.*; // You may need to import the Gson library
+// You may need to import the Gson library
+import com.google.gson.Gson;
+
 import dao.UserDao;
 import models.User;
 
@@ -16,7 +19,8 @@ import models.User;
 public class UserApiServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    @Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         // Set CORS headers
         response.setHeader("Access-Control-Allow-Origin", "*"); // Allow requests from any origin (you can restrict it to specific origins)
         response.setHeader("Access-Control-Allow-Methods", "GET"); // Allow only GET requests
@@ -25,8 +29,8 @@ public class UserApiServlet extends HttpServlet {
         response.setContentType("application/json");
         PrintWriter out = response.getWriter();
 
-        
-        List<User> users = UserDao.getAllUsers(); 
+
+        List<User> users = UserDao.getAllUsers();
 
         // Convert user data to JSON using Gson
         Gson gson = new Gson();

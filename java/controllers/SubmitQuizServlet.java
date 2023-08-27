@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,7 +23,8 @@ import util.DatabaseUtil;
 public class SubmitQuizServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    @Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
@@ -75,7 +77,7 @@ public class SubmitQuizServlet extends HttpServlet {
         }
         return null;
     }
-    
+
     private Map<Integer, QuizQuestion> getQuestionsWithOptions(Connection connection) throws SQLException {
         Map<Integer, QuizQuestion> questionsWithOptions = new HashMap<>();
 
