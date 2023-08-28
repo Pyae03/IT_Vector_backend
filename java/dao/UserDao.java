@@ -84,15 +84,61 @@ public class UserDao {
         return users;
     }
 
-    public boolean updateUser(User user) {
-		return false;
-        // Implement user update
+    public static boolean updateUser(User user) {
+        try (Connection connection = DatabaseUtil.getConnection()) {
+            String sql = "UPDATE user SET username = ?, " +
+                         
+                         "email = ?, " +
+                         "dateOfBirth = ?, " + // Corrected column name
+                         "gender = ? " +    // Added a space here
+                         "WHERE userid = ?";
+
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, user.getUsername());
+            
+            preparedStatement.setString(2, user.getEmail());
+            preparedStatement.setDate(3, new java.sql.Date(user.getDateOfBirth().getTime()));
+            preparedStatement.setString(4, user.getGender());
+            
+            preparedStatement.setString(5, user.getUserID());
+
+            int rowsAffected = preparedStatement.executeUpdate();
+
+            // Check if the update was successful (at least one row affected)
+            if (rowsAffected > 0) {
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return false; // Return false if something went wrong or no rows were affected
     }
 
-    public boolean deleteUser(int id) {
-		return false;
-        // Implement user deletion
+
+    public static boolean deleteUser(String userId) {
+        try (Connection connection = DatabaseUtil.getConnection()) {
+            String sql = "DELETE FROM User WHERE UserID = ?";
+
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, userId);
+
+            int rowsAffected = preparedStatement.executeUpdate();
+
+            // Check if the delete was successful (at least one row affected)
+            if (rowsAffected > 0) {
+                System.out.println("User deleted successfully. Rows affected: " + rowsAffected);
+                return true;
+            } else {
+                System.out.println("User deletion failed.");
+                return false;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
+
 
 	public static boolean createUser(User newUser, String role) {
 		try (Connection connection = DatabaseUtil.getConnection()) {

@@ -37,17 +37,18 @@ public class UserController extends HttpServlet {
             throws ServletException, IOException {
         String action = request.getParameter("action");
 
+        System.out.println("action: " + action);
         if (action == null) {
-            action = "list"; // Default action
+            action = "create"; // Default action
         }
 
         switch (action) {
             case "list":
                 listUsers(request, response);
                 break;
-            case "edit":
-                showEditForm(request, response);
-                break;
+//            case "edit":
+//                showEditForm(request, response);
+//                break;
             case "update":
                 updateUser(request, response);
                 break;
@@ -79,14 +80,7 @@ public class UserController extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
-    private void showEditForm(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
-        User existingUser = userDao.getUserById(id);
-        request.setAttribute("users", existingUser);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("user-form.jsp");
-        dispatcher.forward(request, response);
-    }
+
 
     private void updateUser(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

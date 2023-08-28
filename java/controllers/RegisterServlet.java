@@ -27,9 +27,9 @@ public class RegisterServlet extends HttpServlet {
         System.out.println("dob: " + DOB);
 
 
-        Date dateOfBrith = null;
+         
 		try {
-			dateOfBrith = new SimpleDateFormat("yyyy-MM-dd").parse(DOB);
+			Date dateOfBrith = new SimpleDateFormat("yyyy-MM-dd").parse(DOB);
 			User newUser = new User(username, password, email, gender, dateOfBrith);
 			boolean userCreated;
 
@@ -38,12 +38,12 @@ public class RegisterServlet extends HttpServlet {
 			if (userCreated) {
 				// Redirect to a registration success page
 				response.sendRedirect("user-list.jsp");
-			} else {
+			} else {                     
 				// Redirect to a registration error page
 				response.sendRedirect("/user-auth/login.jsp");
 			}
 
-		} catch (ParseException e) {
+		} catch (ParseException e) {                                                                                           
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

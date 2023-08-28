@@ -2,6 +2,7 @@
 <html lang="en">
 	<head>
 		<link rel="stylesheet" href="admin-dashboard.style.css">
+		<link rel="stylesheet" href="admin-event.style.css">
 		<link
 			rel="stylesheet"
 			href="admin-nav-bar.style.css" />
@@ -96,13 +97,16 @@
 
 
 				<div class="btn-features">
-					<button class="btn-create-new-user">Create New User</button>
+					<button class="btn-create-new-user">Add New User</button>
+					<button class="btn-create-event">Create Event Announcement</button>
 				</div>
 
-
+<!-- user creation form --> 
 				<div class="user-creation-form hidden">
 					<form action="/IT_Vector_Ver1/admin-pages/UserController" method="post">
-						<input type="text" value"create" name="action" style="">
+						
+						<input type="text" value"create" name="action" placeholder="create" style="">
+						
 						<label for="username">Username</label>
 						<input type="text" id="username" name="username" required>
 						
@@ -140,6 +144,38 @@
 		</div>
 		</div>
 
+		<!-- event creation form --> 
+		<div class="event-form hidden">
+				<form action="">
+					<label for="event-name">Title</label>
+					<input
+						type="text"
+						name="event-name" />
+					<label for="event-date">Date</label>
+					<input
+						type="date"
+						name="event-date" />
+					<label for="event-type">Type</label>
+					<input
+						type="text"
+						name="event-type" />
+
+					<label for="event-desc">Description</label>
+					<textarea
+						name="event-desc"
+						id=""
+						cols="30"
+						rows="10"></textarea>
+
+					<div class="btn-group">
+						<input
+							type="submit"
+							value="Create" />
+						<button type="reset">Clear</button>
+					</div>
+				</form>
+			</div>
+
 		<script>
 			const btn_create_user = document.querySelector(".btn-create-new-user")
 			const user_creation_form = document.querySelector(".user-creation-form")
@@ -147,6 +183,27 @@
 			btn_create_user.addEventListener("click", () => {
 				user_creation_form.classList.toggle("hidden")
 			})
+			
+			//<!-- add form creation features with js -->
+			//const expand = document.getElementById("expand");
+			//const event_description = document.querySelector(".event-description");
+			//expand.addEventListener("click", () => {
+			//	event_description.classList.toggle("hidden");
+			//});
+
+			// for event creation
+			const event_form = document.querySelector(".event-form");
+			const btn_create = document.querySelector(".btn-create-event");
+			btn_create.addEventListener("click", () => {
+				event_form.classList.toggle("hidden");
+				if (btn_create.innerText === "Create Event Announcement") {
+					btn_create.style.backgroundColor = "var(--red)";
+					return (btn_create.innerText = "Cancel Event Announcement");
+				}
+
+				btn_create.style.backgroundColor = "var(--light-blue)";
+				return (btn_create.innerHTML = "Create Event Announcement");
+			});
 		</script>
 	</body>
 </html>

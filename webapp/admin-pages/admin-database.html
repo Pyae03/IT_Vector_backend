@@ -5,6 +5,7 @@
 			rel="stylesheet"
 			href="admin-nav-bar.style.css" />
 
+		<link rel="stylesheet" href="admin-database.style.css"/>
 		<meta charset="UTF-8" />
 		<meta
 			name="viewport"
@@ -12,6 +13,30 @@
 		<title>Document</title>
 	</head>
 	<body>
+		<!-- style for form -->
+		<style>
+			.user-update-form {
+				position: absolute;
+				border: 1px solid red;
+				background-color: white;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				width: 30em;
+				height: 30em;
+				display: flex;
+				flex-direction: column;
+			}
+			.user-update-form div {
+				width: 100%;
+				height: 100%;
+			}
+			.hidden {
+				display: none;
+			}
+			
+		</style>
+		
 		<nav>
 			<div class="logo">
 				<img
@@ -100,17 +125,52 @@
 				<!-- use loop to iterate each component -->
 				
 			</div>
+			
+			
 		</div>
+		
+	<form id="user-update-form" class="user-update-form hidden">
+	        <div>
+	            <label for="name">userName:</label>
+	            <input type="text" id="name" name="username" required>
+	        </div>
+	        <div>
+	            <label for="gender">Gender:</label>
+	            <select id="gender" name="gender" required>
+	                <option value="male">Male</option>
+	                <option value="female">Female</option>
+	                <option value="other">Other</option>
+	            </select>
+	        </div>
+	        <div>
+	            <label for="dob">Date of Birth:</label>
+	            <input type="date" id="dob" name="dateOfBirth" required>
+	        </div>
+	        <div>
+	            <label for="email">Email:</label>
+	            <input type="email" id="email" name="email" required>
+	        </div>
+	        <div>
+	            <button type="submit">Submit</button>
+	        </div>
+    </form>
+		
+		
 	</div>
 		</div>
 	</body>
 
-	
+<script
+		type="module"
+		src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+	<script
+		nomodule
+		src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>	
 
 
 <script>
-	function fetchDataPOST() {
-		fetch('http://localhost:8080/IT_Vector_Ver1/UserApiServlet', {
+	function fetchUserData() {
+		fetch('http://localhost:8080/IT_Vector_Ver1/UserReadApiServlet', {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json'
@@ -130,62 +190,175 @@
 			console.error('Error fetching user data:', error);
 		});
 	}
-	fetchDataPOST()
+	fetchUserData()
+		// for user-update-form
+		const userUpdateForm = document.getElementById("user-update-form")
+		// for user-list
+		const user_list = document.querySelector(".user-list")
+		function createUserDetail(userName, gender, dateOfBirth, userID, email) {
+			
+		const userDetailDiv = document.createElement('div');
+		userDetailDiv.classList.add('user-info-detail');
 	
-	// for user-list
-	const user_list = document.querySelector(".user-list")
-	function createUserDetail(userName, gender, dateOfBirth, userID, email) {
+		// Create the profile container
+		const profileDiv = document.createElement('div');
+		profileDiv.classList.add('profile');
+	
+		// Create the anchor element
+		const profileLink = document.createElement('a');
+		profileLink.href = '#';
+	
+		// Create the profile image
+		const profileImage = document.createElement('img');
+		profileImage.src = 'image/user-default.svg';
+		profileImage.alt = '';
+	
+		// Create the user's name
+		const username = document.createElement('p');
+		username.textContent = userName;
 		
-	const userDetailDiv = document.createElement('div');
-	userDetailDiv.classList.add('user-info-detail');
+	
+		// Append image and name to the profile link
+		profileLink.appendChild(profileImage);
+		profileLink.appendChild(username);
+	
+		// Append profile link to the profile container
+		profileDiv.appendChild(profileLink);
+	
+		// Create and append user information paragraphs
+		const userGender = document.createElement('p');
+		userGender.textContent = gender;
+	
+		const userDateOfBirth = document.createElement('p');
+		userDateOfBirth.textContent = dateOfBirth;
+	
+		const userIdentification = document.createElement('p');
+		userIdentification.textContent = userID;
+	
+		const userEmail = document.createElement('p');
+		userEmail.textContent = email;
+	
+		// Append user information paragraphs to the main container
+		userDetailDiv.appendChild(profileDiv);
+		userDetailDiv.appendChild(userGender);
+		userDetailDiv.appendChild(userDateOfBirth);
+		userDetailDiv.appendChild(userIdentification);
+		userDetailDiv.appendChild(userEmail);
+	
+	
+		const btn_crud = document.createElement("div");
+		btn_crud.className = "btn-crud";
 
-	// Create the profile container
-	const profileDiv = document.createElement('div');
-	profileDiv.classList.add('profile');
+// Create and append the edit button
+	const btn_edit = document.createElement("a");
+	btn_edit.className = "btn-edit";
+	const edit_icon = document.createElement("ion-icon");
+	edit_icon.setAttribute("name", "create-outline");
+	btn_edit.appendChild(edit_icon);
 
-	// Create the anchor element
-	const profileLink = document.createElement('a');
-	profileLink.href = '#';
+// Create and append the delete button
+	const btn_delete = document.createElement("a");
+	btn_delete.className = "btn-delete";
+	const delete_icon = document.createElement("ion-icon");
+	delete_icon.setAttribute("name", "trash-outline");
+	btn_delete.appendChild(delete_icon);
 
-	// Create the profile image
-	const profileImage = document.createElement('img');
-	profileImage.src = 'image/user-default.svg';
-	profileImage.alt = '';
 
-	// Create the user's name
-	const username = document.createElement('p');
-	username.textContent = userName;
+	btn_crud.appendChild(btn_edit);
+	btn_crud.appendChild(btn_delete);
+
+	btn_edit.addEventListener("click", () => {
+		console.log("btn_eidt" ,userID)
+		currentUserID = userID;
+		userUpdateForm.classList.toggle("hidden")
+		console.log("current user id: ", currentUserID)
+	})
+	btn_delete.addEventListener("click", () => {
+		userDeletion(userID)
+		console.log("btn_delete")
+	})
+	
+	userDetailDiv.appendChild(btn_crud);
+
+// Append the main container to the list of user details
+	user_list.appendChild(userDetailDiv);
+	}
+	
+//<!--function for user deletion -->
+function userDeletion(currentUserID) {
+	
+	fetch("http://localhost:8080/IT_Vector_Ver1/UserDeleteApiServlet", {
+	    method: 'POST',
+	    headers: {
+		        "Content-Type": "application/json"
+		    }, 
+	    body: currentUserID
+	})
+	.then(function(response) {
+	    if (response.ok) {
+	        
+	    } else {
+	        
+	    }
+	})
+	.catch(function(error) {
+	    
+	});
+	}
+
+//<!--function for user updat form -->
+	
+	let currentUserID;
+	userUpdateForm.addEventListener("submit", function (event) {
+            event.preventDefault(); 
+
+            // Get form data
+            const formData = new FormData(event.target);
+
+            // Convert form data to JSON object
+            const jsonObject = {userID: currentUserID};
+            formData.forEach((value, key) => {
+                jsonObject[key] = value;
+            });
+
+            
+            console.log("Form data as JSON:", jsonObject);
+            
+        
+        
+		fetch("http://localhost:8080/IT_Vector_Ver1/UserUpdateApiServlet", {
+		    method: "POST",
+		    headers: {
+		        "Content-Type": "application/json"
+		    },
+		    body: JSON.stringify(jsonObject)
+		})
+		.then(response => {
+		    if (response.ok) {
+		        return response.json();
+		    } else {
+		        throw new Error("Error updating user.");
+		    }
+		})
+		.then(data => {
+		    if (data.status === "success") {
+		        console.log("User updated successfully!");
+		    } else {
+		        console.error("User update failed.");
+		    }
+		})
+		.catch(error => {
+		    console.error(error.message);
+		});
+        
+            
+        });
+        
+        	
+
+
+
 	
 
-	// Append image and name to the profile link
-	profileLink.appendChild(profileImage);
-	profileLink.appendChild(username);
-
-	// Append profile link to the profile container
-	profileDiv.appendChild(profileLink);
-
-	// Create and append user information paragraphs
-	const userGender = document.createElement('p');
-	userGender.textContent = gender;
-
-	const userDateOfBirth = document.createElement('p');
-	userDateOfBirth.textContent = dateOfBirth;
-
-	const userIdentification = document.createElement('p');
-	userIdentification.textContent = userID;
-
-	const userEmail = document.createElement('p');
-	userEmail.textContent = email;
-
-	// Append user information paragraphs to the main container
-	userDetailDiv.appendChild(profileDiv);
-	userDetailDiv.appendChild(userGender);
-	userDetailDiv.appendChild(userDateOfBirth);
-	userDetailDiv.appendChild(userIdentification);
-	userDetailDiv.appendChild(userEmail);
-
-	// Append the main container to the body of the HTML page
-	user_list.append(userDetailDiv);
-	}
 </script>
 </html>

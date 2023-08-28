@@ -1,0 +1,32 @@
+@charset "UTF-8";
+
+/* btn -crud */
+	.btn-crud {
+		display: flex;
+		gap: 1em;
+		font-size: 1.5em;
+	}
+	.btn-edit::before,
+	.btn-delete::before {
+		content: "";
+		transition: 0.3s ease;
+		position: absolute;
+	}
+	.btn-edit:hover::before,
+	.btn-delete:hover::before {
+		content: "Edit";
+		position: absolute;
+		background-color: #283747;
+		color: white;
+		font-size: 0.65em;
+		margin-top: -1.5em;
+		padding: 0.2em;
+		border-radius: 0.5em;
+		transition: 0.3s ease;
+	}
+
+	.btn-delete:hover::before {
+		content: "Delete";
+	}
+	
+	

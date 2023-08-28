@@ -152,7 +152,7 @@ body {
 	.user-info-detail {
 		display: grid;
 		/* name, gender, date of birth, id, email, achievement earned, functions */
-		grid-template-columns: 0.85fr 0.3fr 0.4fr 0.7fr 1fr 0.45fr 0.4fr;
+		grid-template-columns: 0.85fr 0.3fr 0.4fr 0.7fr 1fr 0.45fr 1fr;
 		align-items: center;
 
 		padding: 1em 0em;
@@ -167,4 +167,6 @@ body {
 		align-items: center;
 		gap: 0.3em;
 	}
+	
+	
 }
