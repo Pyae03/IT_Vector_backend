@@ -24,10 +24,10 @@ public class CourseApiServlet extends HttpServlet {
 			List<Course> courses = CourseDao.getAllCourses();
 			String jsonResponse = convertCoursesToJSON(courses);
 			
-			// Set response content type to JSON
+			
 			response.setContentType("application/json");
 			
-			// Send the JSON response
+			// JSON response
 			response.getWriter().write(jsonResponse);
 			
 		} catch (Exception e) {

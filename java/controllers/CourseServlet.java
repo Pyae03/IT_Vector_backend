@@ -30,10 +30,10 @@ public class CourseServlet extends HttpServlet {
         // Convert courses to JSON
         String jsonResponse = convertCoursesToJSON(courses);
 
-        // Set response content type to JSON
+        
         response.setContentType("application/json");
 
-        // Send the JSON response
+        
         response.getWriter().write(jsonResponse);
     }
 

@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import dao.UserDao;
+import models.User;
 import util.DatabaseUtil;
 
 @WebServlet("/LoginServlet")
@@ -34,16 +36,28 @@ public class LoginServlet extends HttpServlet {
         	// for session
         	HttpSession session = request.getSession(true);
 
-        	session.setAttribute("email", email);
-            session.setAttribute("isLoggedIn", true);
-
-            int sessionTimeOut = 7 * 24 * 60 * 60;
-            session.setMaxInactiveInterval(sessionTimeOut);
+        	User currentLoginUser;
+			try {
+				currentLoginUser = UserDao.getCurrentUserWithEmail(email);
+				System.out.println("current: " + currentLoginUser.getUserID());
+				session.setAttribute("user", currentLoginUser);
+				session.setAttribute("isLoggedIn", true);
+				
+				int sessionTimeOut = 7 * 24 * 60 * 60;
+				session.setMaxInactiveInterval(sessionTimeOut);
+				
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        	
 
 
             // for role Student, Teacher, Admin
         	switch(role) {
-        	case "Student": response.sendRedirect("student-pages/student-dashboard.html"); break;
+        	//case "Student": response.sendRedirect("student-pages/student-dashboard.html"); break;
+        	case "Student": response.sendRedirect("user-profile/user-profile.jsp"); break;
         	case "Teacher": response.sendRedirect("student-dashboard.jsp"); break;
         	case "Admin": response.sendRedirect("student-dashboard.jsp"); break;        	}
             // Redirect

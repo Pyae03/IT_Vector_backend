@@ -1,6 +1,7 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -174,6 +175,39 @@ public class UserDao {
 	        e.printStackTrace();
 	        return false;
 	    }
+	}
+	
+	public static User getCurrentUserWithEmail(String email) throws SQLException {
+		
+		User currentUser = null;
+		try (Connection connection = DatabaseUtil.getConnection()) {
+	        String sql = "select userID, username, email, gender, bio, userRole, registrationDate from User\r\n"
+	        		+ "where email = ?;";
+	        
+	        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+	        preparedStatement.setString(1, email);
+	        
+	        ResultSet rs = preparedStatement.executeQuery();
+
+	        while(rs.next()) {
+	        	String userID = rs.getString("userID");
+	        	String username = rs.getString("username");
+	        	String userEmail = rs.getString("email");
+	        	//Date dateOfBirth = rs.getDate("dateOfBirth");
+	        	String gender = rs.getString("gender");
+	        	String bio = rs.getString("bio");
+	        	String userRole = rs.getString("userRole");
+	        	Date registrationDate = rs.getDate("registrationDate");
+	        	
+	        	
+	        	currentUser = new User(userID, username, userEmail, gender, bio, userRole, registrationDate);
+	        }
+	        
+	        return currentUser;
+		}
+		
+		
+		
 	}
 
 

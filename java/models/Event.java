@@ -1,6 +1,9 @@
 package models;
 
-import java.util.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+//import java.util.Date;
+import java.sql.Date;
 
 public class Event {
     private int eventID;
@@ -13,14 +16,21 @@ public class Event {
         
     }
 
-    public Event(int eventID, String eventTitle, Date eventDate, String eventType, String eventDescription) {
-        this.eventID = eventID;
+    public Event(String eventTitle, Date eventDate, String eventType, String eventDescription) {
+        
         this.eventTitle = eventTitle;
         this.eventDate = eventDate;
         this.eventType = eventType;
         this.eventDescription = eventDescription;
     }
-
+    // for delete
+    public Event(int eventID, String eventTitle, Date eventDate, String eventType, String eventDescription) {
+    	this.eventID = eventID;
+        this.eventTitle = eventTitle;
+        this.eventDate = eventDate;
+        this.eventType = eventType;
+        this.eventDescription = eventDescription;
+    }
     public int getEventID() {
         return eventID;
     }
@@ -59,6 +69,16 @@ public class Event {
 
     public void setEventDescription(String eventDescription) {
         this.eventDescription = eventDescription;
+    }
+    
+    public Date formatDate(Date date) throws ParseException {
+
+//		Date data = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String formatedDate = sdf.format(date);
+		Date convertedDate = (Date) sdf.parse(formatedDate);
+
+		return convertedDate;
     }
 
     @Override

@@ -25,6 +25,8 @@ public class QuizQuestion {
         return "QuizQuestion [questionID=" + questionID + ", quizID=" + quizID + ", questionText=" + questionText
                 + ", categoryName=" + categoryName + "]";
     }
+	
+	
 
 	public String getQuestionText() {
 		// TODO Auto-generated method stub
@@ -45,4 +47,11 @@ public class QuizQuestion {
 		options.add(quizOption);
 
 	}
+
+	public int getQuizID() {
+
+		return this.quizID;
+	}
+
+	
 }

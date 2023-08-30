@@ -40,16 +40,16 @@ public class UserUpdateApiServlet extends HttpServlet {
 
         System.out.println("enter suer: " + jsonInput);
         
-        // Parse JSON data into a User object using Gson
+        // parse JSON data into a User object
         Gson gson = new Gson();
         User user = gson.fromJson(jsonInput.toString(), User.class);
 
-        // Update the user in the database
+        // update user in the database
         boolean success = false;
 		success = UserDao.updateUser(user);
 
-        // Prepare the JSON response using Gson
-        JsonObject jsonResponse = new JsonObject();
+        // prepare the JSON response
+        JsonObject jsonResponse = new JsonObject(); // using gson
         if (success) {
             jsonResponse.addProperty("status", "success");
         } else {

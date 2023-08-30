@@ -30,14 +30,14 @@
 					>DashBoard</a
 				>
 				<a
-					href="admin-achievement.html"
-					class=""
-					>Achievements</a
-				>
-				<a
 					href="admin-event.html"
 					class="active"
-					>Event</a
+					>Events</a
+				>
+				<a
+					href="admin-courses.html"
+					class=""
+					>Course</a
 				>
 				<a
 					href="admin-database.html"
@@ -73,7 +73,7 @@
 			<div class="event-creation">
 				<div class="view-title">
 					<img
-						src="image/Event.svg"
+						src="image/event.svg"
 						alt="" />
 					<h2>Event</h2>
 				</div>
@@ -82,26 +82,26 @@
 			</div>
 
 			<div class="event-form hidden">
-				<form action="">
+				<form class="event-submit-form" action="IT_Vector/EventCreateApiServlet">
 					<label for="event-name">Title</label>
 					<input
 						type="text"
-						name="event-name" />
+						name="event-title" required/>
 					<label for="event-date">Date</label>
 					<input
 						type="date"
-						name="event-date" />
+						name="event-date" required/>
 					<label for="event-type">Type</label>
 					<input
 						type="text"
-						name="event-type" />
+						name="event-type" required/>
 
 					<label for="event-desc">Description</label>
 					<textarea
 						name="event-desc"
 						id=""
 						cols="30"
-						rows="10"></textarea>
+						rows="10" required></textarea>
 
 					<div class="btn-group">
 						<input
@@ -113,30 +113,91 @@
 			</div>
 
 			<div class="event-list">
-				<div class="event-card">
-					<h3>Event Title: How to be a Computer Scientist</h3>
-					<p>Date: 18-8-2023</p>
-					<p>Type: Computer Science</p>
-					<button
-						id="expand"
-						class="">
-						Expand
-					</button>
-					<article class="event-description hidden">
-						<p>
-							Discussing how to become a computer scientist involves sharing insights and guidance on the educational journey and skills development required to excel in the field. It covers aspects such as pursuing relevant degrees, specializing in specific areas, conducting research, attending conferences, networking, and continuous learning. Conversations about becoming a computer scientist aim to provide valuable information and advice to individuals aspiring to enter this dynamic and evolving profession.
-						</p>
-					</article>
-				</div>
+				
 			</div>
 		</div>
+		
+		
+		
+		
+		
 		<!-- add form creation features with js -->
 		<script>
-			const expand = document.getElementById("expand");
-			const event_description = document.querySelector(".event-description");
-			expand.addEventListener("click", () => {
-				event_description.classList.toggle("hidden");
+			// post form data to servlet
+			//const fetchOptionsForPost = 
+			document.querySelector('.event-submit-form').addEventListener('submit', function (event) {
+			     
+			     event.preventDefault();
+			
+			   const form = event.target;
+			   
+			   //const title = form[0].name
+			   //const date = form[1].name
+			   //const type = form[2].name
+			   //const description = form[3].name
+			   
+            const formData = new FormData(form);
+			const obj = {
+				eventTitle : form[0].value,
+				eventDate : form[1].value,
+				eventType : form[2].value,
+				eventDescription : form[3].value
+			}
+			     
+				console.log("formdata: ", obj)
+			    fetch("http://localhost:8080/IT_Vector_Ver1/EventCreateApiServlet", {
+				  method: 'POST',
+				  headers: {
+				    'Content-Type': 'application/json',
+				  },
+				  body: JSON.stringify(obj)
+				})
+			    .then(response => {
+			        if (!response.ok) {
+			            throw new Error('Network response was not ok');
+			        }
+			        return response.json();
+			    })
+			    .then(data => {
+			        console.log('Response:', data);
+			    
+			    })
+			    .catch(error => {
+			        console.error('Fetch error:', error);
+			    });
 			});
+
+			
+			
+			// start
+			const event_list = document.querySelector(".event-list")
+			// get event data from servlet
+			const fetchOptions = {
+  				  method: 'GET',
+    				headers: {
+        			'Content-Type': 'application/json',
+    				},
+				};
+			fetch("http://localhost:8080/IT_Vector_Ver1/EventReadApiServlet", fetchOptions)
+			  .then(response => {
+			    if (!response.ok) {
+			      throw new Error('Network response was not ok');
+			    }
+			    return response.json(); 
+			  })
+			  .then(data => {
+			    
+			    console.log(data); 
+			    data.forEach(d => createEventCard(d.eventID, d.eventTitle, d.eventDate, d.eventType, d.eventDescription))
+			    
+			  })
+			  .catch(error => {
+			    // Handle errors here
+			    console.error('Fetch error:', error);
+			  });
+
+			
+			
 
 			// for event creation
 			const event_form = document.querySelector(".event-form");
@@ -151,6 +212,98 @@
 				btn_create.style.backgroundColor = "var(--light-blue)";
 				return (btn_create.innerHTML = "Create");
 			});
+			
+			// create event card 
+			function createEventCard(id, title, date, type, description) {
+				  const eventCard = document.createElement('div');
+				  eventCard.classList.add('event-card');
+				
+				  const eventTitle = document.createElement('h3');
+				  eventTitle.textContent = `Event Title: ${title}`;
+				
+				  const eventDate = document.createElement('p');
+				  eventDate.textContent = `Date: ${date}`;
+				
+				  const eventType = document.createElement('p');
+				  eventType.textContent = `Type: ${type}`;
+				
+				  const expandButton = document.createElement('button');
+				  expandButton.className = 'expand';
+				  expandButton.textContent = 'Expand';
+				
+					// delete button
+				  const deleteButton = document.createElement('button');
+				  deleteButton.className = 'delete';
+				  deleteButton.textContent = 'Delete'
+				
+				  const eventDescription = document.createElement('article');
+				  eventDescription.classList.add('event-description', 'hidden');
+				
+				  const descriptionText = document.createElement('p');
+				  descriptionText.textContent = description;
+				
+				
+				
+				
+				  eventDescription.appendChild(descriptionText);
+				  eventCard.appendChild(eventTitle);
+				  eventCard.appendChild(eventDate);
+				  eventCard.appendChild(eventType);
+				  eventCard.appendChild(expandButton);
+				  eventCard.appendChild(deleteButton);
+				  eventCard.appendChild(eventDescription);
+				
+				
+				// event action (expand description)
+			expandButton.addEventListener("click", () => {
+				
+				eventDescription.classList.toggle("hidden");
+			});
+				
+				// event delete function 
+			deleteButton.addEventListener("click", () => {
+				console.log("event id: ", id)
+				
+				 
+            
+            const eventData = {
+                eventID: id,
+                eventTitle: title,
+                eventDate: date,
+                eventType: type,
+                eventDescription: description
+            };
+            
+            fetch("http://localhost:8080/IT_Vector_Ver1/EventDeleteApiServlet", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(eventData)
+            })
+            .then(function(response) {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error("Network response was not ok");
+                }
+            })
+            .then(function(data) {
+                if (data.success) {
+                    alert("Event deleted successfully");  
+                } 
+            })
+            .catch(function(error) {
+                console.log("error: ", error)
+            });
+        });
+			
+				
+			// parent syntax
+			  return event_list.appendChild(eventCard);
+				}
+				
+
 		</script>
 	</body>
 </html>

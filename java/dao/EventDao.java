@@ -12,7 +12,7 @@ import util.DatabaseUtil;
 
 public class EventDao {
 
-    // Insert an event into the database
+    // Insert 
     public boolean createEvent(Event event) {
         try (Connection connection = DatabaseUtil.getConnection()) {
             String sql = "INSERT INTO Event (eventTitle, eventDate, eventType, eventDescription) VALUES (?, ?, ?, ?)";
@@ -30,8 +30,8 @@ public class EventDao {
         }
     }
 
-    // Retrieve all events from the database
-    public List<Event> getAllEvents() {
+    // Retrieve 
+    public static List<Event> getAllEvents() {
         List<Event> events = new ArrayList<>();
         try (Connection connection = DatabaseUtil.getConnection()) {
             String sql = "SELECT * FROM Event";
@@ -53,7 +53,7 @@ public class EventDao {
         return events;
     }
 
-    // Retrieve an event by ID
+    // Retrieve 
     public Event getEventById(int eventId) {
         Event event = null;
         try (Connection connection = DatabaseUtil.getConnection()) {
@@ -64,7 +64,7 @@ public class EventDao {
 
             if (resultSet.next()) {
                 event = new Event();
-                event.setEventID(resultSet.getInt("eventID"));
+                event.setEventID( resultSet.getInt("eventID"));
                 event.setEventTitle(resultSet.getString("eventTitle"));
                 event.setEventDate(resultSet.getDate("eventDate"));
                 event.setEventType(resultSet.getString("eventType"));
@@ -76,7 +76,7 @@ public class EventDao {
         return event;
     }
 
-    // Update an event in the database
+    // Update 
     public boolean updateEvent(Event event) {
         try (Connection connection = DatabaseUtil.getConnection()) {
             String sql = "UPDATE Event SET eventTitle = ?, eventDate = ?, eventType = ?, eventDescription = ? WHERE eventID = ?";
@@ -95,8 +95,8 @@ public class EventDao {
         }
     }
 
-    // Delete an event from the database by ID
-    public boolean deleteEvent(int eventId) {
+    // Delete 
+    public static boolean deleteEvent(int eventId) {
         try (Connection connection = DatabaseUtil.getConnection()) {
             String sql = "DELETE FROM Event WHERE eventID = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);

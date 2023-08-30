@@ -1,0 +1,118 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400&family=Nunito:wght@200;300;400&display=swap");
+
+:root {
+	--bg-color: #eff3f9;
+	--white-color: #fff;
+	--light-purple: #9db7fb;
+	--light-blue: #60b9ff;
+	--dark-blue: #283747;
+	--light-gray: #eaecee;
+	--btn-border-radius: 0.5em;
+	--light-gray2: #d5d8dc;
+	--red: #e74c3c;
+	--light-green: #69fcb5;
+}
+
+* {
+	font-family: "Lato", monospace, sans-serif;
+}
+
+body {
+	background-color: var(--bg-color);
+	display: flex;
+	gap: 1em;
+	margin: 2em;
+}
+/* helper css */
+.hidden {
+	display: none;
+	transform: 0.3s ease;
+}
+.become-blur {
+	filter: blur(3px);
+}
+
+.card {
+	box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+	background-color: var(--white-color);
+	border-radius: var(--btn-border-radius);
+}
+
+@media (min-width: 1440px) {
+	.container {
+		display: flex;
+		flex-direction: column;
+		gap: 1.5em;
+		flex: 0.7;
+	}
+	.profile-img {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+	.profile-pic {
+		width: 8em;
+		height: 8em;
+		border-radius: 50%;
+		position: relative;
+		margin-top: -3em;
+		border: 0.35em solid var(--white-color);
+	}
+	.edit-icon {
+		margin-top: 1em;
+		font-size: 2em;
+	}
+	.user-profile {
+		display: flex;
+		flex-direction: column;
+		padding: 2em;
+	}
+	.bg-component {
+		background-color: var(--light-blue);
+		height: 13.5em;
+		border-top-left-radius: var(--btn-border-radius);
+		border-top-right-radius: var(--btn-border-radius);
+		/* remove parent padding */
+		margin: -2em;
+	}
+	.profile-info {
+		display: flex;
+		flex-direction: column;
+	}
+	.role {
+		font-weight: bold;
+	}
+	.profile-info p span::before {
+		content: "📅";
+	}
+	.btn-share {
+		border: none;
+		background-color: var(--light-blue);
+		color: white;
+		font-size: 1.1em;
+		font-weight: bold;
+		padding: 0.5em;
+		width: 20%;
+		border-radius: var(--btn-border-radius);
+	}
+
+	.skill {
+		padding: 2em;
+	}
+	.skill-list {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		grid-template-rows: repeat(auto-fit, minmax(1fr, 1em));
+	}
+	.skill-list p {
+		display: inline;
+		border: 1px solid var(--light-blue);
+		padding: 0.4em;
+		font-size: 1.1em;
+		border-radius: var(--btn-border-radius);
+	}
+	.bio {
+		flex: 0.3;
+		padding: 1em;
+	}
+}

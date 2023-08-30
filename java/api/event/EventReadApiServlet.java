@@ -1,41 +1,47 @@
 package api.event;
 
 import java.io.IOException;
-import javax.servlet.ServletException;
+import java.io.PrintWriter;
+import java.util.List;
+
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class EventReadApiServlet
- */
+import com.google.gson.Gson;
+
+import dao.EventDao;
+import models.Event;
+
 @WebServlet("/EventReadApiServlet")
 public class EventReadApiServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public EventReadApiServlet() {
-        super();
-        // TODO Auto-generated constructor stub
+    private EventDao eventDao = new EventDao(); // Create an instance of EventDao
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+    	// Set CORS headers
+        response.setHeader("Access-Control-Allow-Origin", "*"); // Allow requests from any origin (you can restrict it to specific origins)
+        response.setHeader("Access-Control-Allow-Methods", "GET"); // Allow only GET requests
+        response.setHeader("Access-Control-Allow-Headers", "Content-Type"); // Allow specified headers
+        response.setContentType("application/json");
+
+        try (PrintWriter out = response.getWriter()) {
+            // Retrieve all events from the database 
+            List<Event> events = EventDao.getAllEvents();
+
+
+            Gson gson = new Gson();
+
+            // events to JSON
+            String jsonEvents = gson.toJson(events);
+
+            // to client
+            out.println(jsonEvents);
+        } catch (IOException e) {
+            e.printStackTrace();
+            
+            response.getWriter().println("Error occurred while retrieving events.");
+        }
     }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
-
 }

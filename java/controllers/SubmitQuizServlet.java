@@ -14,9 +14,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import dao.QuizResultDao;
 import models.QuizOption;
 import models.QuizQuestion;
+import models.QuizResult;
+import models.User;
 import util.DatabaseUtil;
 
 @WebServlet("/SubmitQuizServlet")
@@ -33,15 +37,24 @@ public class SubmitQuizServlet extends HttpServlet {
             Map<Integer, QuizQuestion> questionsWithOptions = getQuestionsWithOptions(connection);
 
             int score = 0; // Initialize the user's score
-
+            int quizID = 0; 
             out.println("<html><head><title>Quiz Results</title></head><body>");
 
             for (Map.Entry<Integer, QuizQuestion> entry : questionsWithOptions.entrySet()) {
+            	
+            	System.out.println("entry: " + entry);
                 int questionID = entry.getKey();
                 QuizQuestion question = entry.getValue();
 
                 String selectedOption = request.getParameter("question_" + questionID);
+                
+                
 
+                //if(quizID == null) {
+                	quizID = question.getQuizID();
+                //}
+                
+                
                 out.println("<h2>Question ID: " + questionID + "</h2>");
                 out.println("<p>Question Text: " + question.getQuestionText() + "</p>");
                 out.println("<p>Category: " + question.getCategoryName() + "</p>");
@@ -61,6 +74,18 @@ public class SubmitQuizServlet extends HttpServlet {
             }
 
             out.println("<p>Your Total Score: " + score + "</p>");
+            
+            HttpSession session = request.getSession();
+            User currentUser = (User) session.getAttribute("user");
+            System.out.println("current user: " + currentUser.getUserID() + currentUser.getUsername());            
+            QuizResult quizResult = new QuizResult(quizID, currentUser.getUserID(), score);
+            QuizResultDao qrDao = new QuizResultDao();
+            qrDao.insertQuizResult(quizResult);
+            // resultQuiz table id
+            // current user id
+            // current quiz id
+            // score
+            // fix current user is null
 
             out.println("</body></html>");
         } catch (SQLException e) {

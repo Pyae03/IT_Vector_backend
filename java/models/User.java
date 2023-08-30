@@ -19,7 +19,8 @@ public class User {
 
     public User() {
     }
-
+    
+    
     public User(String username, String password, String email,
     		String gender, Date dateOfBirth) {
 
@@ -30,15 +31,30 @@ public class User {
         this.dateOfBirth = dateOfBirth;
     }
     
-    public User(String username, String password, String email,
-    		String gender, String role, Date dateOfBirth) {
-
-    	this.username = username;
-        this.password = password;
-        this.email = email;
-        this.gender = gender;
-        this.userRole = role;
-        this.dateOfBirth = dateOfBirth;
+    // for admin
+//    public User(String username, String password, String email,
+//    		String gender, String role, Date dateOfBirth) {
+//
+//    	this.username = username;
+//        this.password = password;
+//        this.email = email;
+//        this.gender = gender;
+//        this.userRole = role;
+//        this.dateOfBirth = dateOfBirth;
+//    }
+    
+// for current login user
+    
+    public User(String userID, String username1, String email1, String gender1, 
+    		String bio1, String userRole1, Date registrationDate1) {
+    	this.userID = userID;
+    	this.username = username1;
+    	this.email = email1;
+    	//this.dateOfBirth = dateOfBirth;
+    	this.gender = gender1;
+    	this.bio = bio1;
+    	this.userRole = userRole1;
+    	this.registrationDate = registrationDate1;
     }
     
 
@@ -55,6 +71,7 @@ public class User {
         this.userRole = userRole;
         this.registrationDate = registrationDate;
     }
+    
 
     // Getter and setter methods for all fields
     // ...

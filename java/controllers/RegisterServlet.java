@@ -36,10 +36,10 @@ public class RegisterServlet extends HttpServlet {
 			userCreated = UserDao.createUser(newUser);
 			System.out.println("userCreated: " + userCreated);
 			if (userCreated) {
-				// Redirect to a registration success page
+				// Redirect to 
 				response.sendRedirect("user-list.jsp");
 			} else {                     
-				// Redirect to a registration error page
+				// Redirect to 
 				response.sendRedirect("/user-auth/login.jsp");
 			}
 
