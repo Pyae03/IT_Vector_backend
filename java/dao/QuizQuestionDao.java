@@ -11,7 +11,7 @@ import models.QuizOption;
 import models.QuizQuestion;
 import util.DatabaseUtil;
 
-public class QuizDao {
+public class QuizQuestionDao {
 
 
 	// Query questions and options

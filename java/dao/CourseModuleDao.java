@@ -95,4 +95,30 @@ public class CourseModuleDao {
             return false;
         }
     }
+    
+    // for assignment teacher
+    public List<CourseModule> getModulesByCourseForAssignment(int courseID) {
+        List<CourseModule> modules = new ArrayList<>();
+        String sql = "SELECT * FROM CourseModule WHERE courseID = ?";
+        try (
+            Connection connection = DatabaseUtil.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql)
+        ) {
+            preparedStatement.setInt(1, courseID);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                int moduleID = resultSet.getInt("moduleID");
+                String moduleTitle = resultSet.getString("moduleTitle");
+                
+                CourseModule courseModule = new CourseModule(moduleID, courseID, moduleTitle);
+                
+                System.out.println("module: " + courseModule.toString());
+                modules.add(courseModule);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return modules;
+    }
+    
 }

@@ -12,7 +12,7 @@ public class CourseModule {
     public CourseModule() {
         // Default constructor
     }
-
+  
     public CourseModule(int moduleID, int courseID, String moduleTitle) {
         this.moduleID = moduleID;
         this.courseID = courseID;
@@ -46,11 +46,11 @@ public class CourseModule {
     @Override
     public String toString() {
     	
-    	List<CourseModuleMaterial> allCM = this.getCourseModuleMaterialList();
-    	
-    	for(CourseModuleMaterial cm : allCM) {
-    		System.out.println("cm: " + cm.toString());
-    	}
+//    	List<CourseModuleMaterial> allCM = this.getCourseModuleMaterialList();
+//    	
+//    	for(CourseModuleMaterial cm : allCM) {
+//    		System.out.println("cm: " + cm.toString());
+//    	}
     	
         return "CourseModule{" +
                 "moduleID=" + moduleID +

@@ -77,7 +77,7 @@
 				                    %>
 											<div class="material">
 												<a
-													href=""
+													href="http://localhost:8080/IT_Vector_Ver1/CoursePlayerServlet?materialID=<%= material.getMaterialID() %>"
 													class=""
 													><span><ion-icon name="play-circle-outline"></ion-icon></span
 													><%= material.getMaterialName() %></a

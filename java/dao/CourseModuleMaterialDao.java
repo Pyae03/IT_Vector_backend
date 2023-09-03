@@ -62,5 +62,42 @@ public class CourseModuleMaterialDao {
         return materials;
     }
 
+    
+    public CourseModuleMaterial getMaterialByID(String materialID) throws SQLException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        CourseModuleMaterial material = null;
+
+        try {
+            // Obtain a database connection using DatabaseUtil.getConnection()
+            connection = DatabaseUtil.getConnection();
+
+            String query = "SELECT * FROM CourseModuleMaterial WHERE materialID=?";
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, materialID);
+
+            resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                // Create a CourseModuleMaterial object from the result set
+                material = new CourseModuleMaterial();
+                material.setMaterialID(Integer.parseInt(resultSet.getString("materialID")) );
+                material.setModuleID(Integer.parseInt(resultSet.getString("moduleID")));
+                material.setMaterialName(resultSet.getString("materialName"));
+                material.setMaterialDescription(resultSet.getString("materialDescription"));
+                material.setFilePath(resultSet.getString("filePath"));
+                // Set other properties as needed
+            }
+        } catch(Exception e) {
+        	
+        }
+
+        return material;
+    }
+    
     // Other methods (update, delete, etc.) can be added as needed
+    
+    
+    
 }

@@ -2,6 +2,8 @@ package controllers;
 
 import java.io.File;
 import java.io.IOException;
+
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -15,60 +17,53 @@ import models.CourseModuleMaterial;
 
 @WebServlet("/AddMaterialServlet")
 @MultipartConfig(
-		fileSizeThreshold = 1024 * 1024,      // 1 MB
-	    maxFileSize = 250 * 1024 * 1024,     // 250 MB
-	    maxRequestSize = 250 * 1024 * 1024   // 250 MB
+    fileSizeThreshold = 1024 * 1024,      // 1 MB
+    maxFileSize = 250 * 1024 * 1024,     // 250 MB
+    maxRequestSize = 250 * 1024 * 1024   // 250 MB
 )
 public class AddMaterialServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-    	
-    	// change to your directory
-        String uploadDirectory = "D:\\Computer University (Pyae Hein)\\Second Year (Second Semester)\\ProjectUploadFiles"; // Replace with the actual directory path
-
-        
-        System.out.println("enter servlet");
-        // Ensure the directory exists; create it if necessary
-        File uploadDir = new File(uploadDirectory);
-        if (!uploadDir.exists()) {
-            uploadDir.mkdirs();
-        }
-        System.out.println("enter file");
         try {
-        
-        	System.out.println("enter try catch");
-            int moduleID = Integer.parseInt(request.getParameter("module-id")) ;
+            int moduleID = Integer.parseInt(request.getParameter("module-id"));
             String materialName = request.getParameter("material-name");
             String materialDescription = request.getParameter("material-description");
-            
+
             // Get the file part from the request
             Part filePart = request.getPart("lecture-file");
 
-            System.out.println("enter get FILE");
+            // Get the real path of the web application
+            ServletContext context = getServletContext();
+            String uploadDirectory = context.getRealPath("/WEB-INF");
+
+            // Ensure the directory exists; create it if necessary
+            File uploadDir = new File(uploadDirectory);
+            if (!uploadDir.exists()) {
+                uploadDir.mkdirs();
+            }
+
             // Get the file name
             String fileName = getFileName(filePart);
 
             // Write the file to the specified directory
             String filePath = uploadDirectory + File.separator + fileName;
             filePart.write(filePath);
-            
-            System.out.println("Uploaded File" + filePath);
-            
-            // save in database
-            CourseModuleMaterial material = new CourseModuleMaterial( moduleID, materialName, materialDescription, filePath);
-           
-				boolean success = CourseModuleMaterialDao.addMaterial(material);
-			if(success) {
-	            System.out.println("Successed!");
-			}
-            
-            response.sendRedirect("admin-pages/admin-courses.html");
 
-            response.getWriter().write("File " + fileName + " uploaded for material: " + materialName + " in module: " );
+            // Save in the database
+            CourseModuleMaterial material = new CourseModuleMaterial(moduleID, materialName, materialDescription, filePath);
+            boolean success = CourseModuleMaterialDao.addMaterial(material);
+
+            if (success) {
+                response.sendRedirect("admin-pages/admin-courses.html");
+                System.out.println("Material added successfully!");
+            } else {
+                response.sendRedirect("admin-pages/admin-dashboard.html");
+                response.getWriter().write("Material upload failed.");
+            }
         } catch (Exception e) {
-        	response.sendRedirect("admin-pages/admin-dashboard.html");
+            response.sendRedirect("admin-pages/admin-dashboard.html");
             response.getWriter().write("File upload failed: " + e.getMessage());
         }
     }

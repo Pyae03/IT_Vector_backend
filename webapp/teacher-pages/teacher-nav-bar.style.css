@@ -1,0 +1,81 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400&family=Nunito:wght@200;300;400&display=swap");
+
+:root {
+	--bg-color: #eff3f9;
+	--white-color: #fff;
+	--light-purple: #9db7fb;
+	--light-blue: #60b9ff;
+	--dark-blue: #283747;
+	--light-gray: #eaecee;
+	--btn-border-radius: 0.5em;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+img,
+picture,
+svg,
+video {
+	display: block;
+	max-width: 100%;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	font-family: "Nunito", "Lato";
+	color: #283747;
+}
+
+body {
+	min-height: 100vh;
+}
+
+@media (min-width: 1440px) {
+	body {
+		background-color: var(--bg-color);
+	}
+	nav {
+		background-color: var(--white-color);
+		display: grid;
+		grid-template-columns: 1fr 0.1fr 0.1fr;
+
+		padding: 0.5em;
+	}
+
+	.logo {
+		display: flex;
+		align-items: center;
+	}
+	img {
+		width: 35px;
+		height: 35px;
+	}
+	.logo > h2 {
+		color: var(--dark-blue);
+	}
+
+	nav div:nth-child(2) img,
+	nav div:nth-child(3) img {
+		border-radius: 50%;
+		object-fit: contain;
+	}
+
+	nav .notification,
+	nav .user-profile {
+		margin: 0px;
+
+		text-align: center;
+		width: 43px;
+		height: 43px;
+		border-radius: 50%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border: 1px solid var(--dark-blue);
+	}
+}

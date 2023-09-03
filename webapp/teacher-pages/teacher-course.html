@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<script
+			type="module"
+			src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+		<script
+			nomodule
+			src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+		<link
+			rel="stylesheet"
+			href="teacher-course.style.css" />
+		<link
+			rel="stylesheet"
+			href="teacher-nav-bar.style.css" />
+		<link
+			rel="stylesheet"
+			href="user-side-bar.style.css" />
+
+		<link
+			rel="preconnect"
+			href="https://fonts.googleapis.com" />
+		<link
+			rel="preconnect"
+			href="https://fonts.gstatic.com"
+			crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400&family=Nunito:wght@200;300;400&display=swap"
+			rel="stylesheet" />
+		<link
+			rel="preconnect"
+			href="https://fonts.googleapis.com" />
+		<link
+			rel="preconnect"
+			href="https://fonts.gstatic.com"
+			crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400&display=swap"
+			rel="stylesheet" />
+
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0" />
+		<title>IT_Vector | Student</title>
+	</head>
+	<body>
+		<div class="container">
+			<nav>
+				<div class="logo">
+					<img
+						src="image/logo.svg"
+						alt="" />
+					<h2>IT_Vector</h2>
+				</div>
+
+				<div class="notification">
+					<img
+						src="image/notification.svg"
+						alt="" />
+				</div>
+				<div class="user-profile">
+					<img
+						src="image/user-default.svg"
+						alt="" />
+				</div>
+			</nav>
+			<div class="wrapper">
+				<div class="side-bar">
+					<div class="outer-2">
+						<a href="teacher-chat.html">
+							<div class="element">
+								<img
+									src="image/course.svg"
+									alt="" />
+								<p>Chat</p>
+							</div>
+						</a>
+					</div>
+
+					<div class="outer-4 active">
+						<a href="teacher-create-task.html">
+							<div class="element">
+								<img
+									src="image/upload-file.svg"
+									alt="" />
+								<p>Create Tasks</p>
+							</div>
+						</a>
+					</div>
+					<div class="outer-5">
+						<a href="#">
+							<div class="element">
+								<img
+									src="image/setting.svg"
+									alt="" />
+								<p>Setting</p>
+							</div>
+						</a>
+					</div>
+				</div>
+
+				<main>
+					<div class="course-group">
+						<!-- add course-card in here from server -->
+						<!-- course card in here -->
+					</div>
+				</main>
+			</div>
+		</div>
+
+		<!-- <script src="teacher-create-task.script.js"></script> -->
+		<script src="teacher-create-task.script.js"></script>
+	</body>
+
+	<script>
+		const courseGroup = document.querySelector(".course-group"); // Replace with the actual container element where you want to add the course cards
+
+		const fetchOptions = {
+			method: "GET",
+			headers: {
+				"Content-Type": "application/json",
+			},
+		};
+
+		// Fetch data from the servlet
+		fetch("http://localhost:8080/IT_Vector_Ver1/CourseApiServlet", fetchOptions)
+			.then((response) => response.json()) // Parse the JSON response
+			.then((courses) => {
+				console.log("courses: ", courses);
+				// current is teacher id not teacher name.
+				// fix: teacher id to teacher name.
+				courses.forEach((course) =>
+					createCourseCard(
+						course.courseCode,
+						course.courseName,
+						course.teacher,
+						course.courseId
+					)
+				);
+			})
+			.catch((error) => {
+				console.error("Error fetching data:", error);
+			});
+
+		function createCourseCard(courseCode, courseName, teacher, courseId) {
+			const courseCard = document.createElement("a");
+			courseCard.href = `http://localhost:8080/IT_Vector_Ver1/AssignmentPageServlet?courseId=${courseId}`; // Add the href attribute here
+			courseCard.classList.add("course-card");
+
+			const innerDiv = document.createElement("div");
+
+			const titleDiv = document.createElement("div");
+			titleDiv.classList.add("course-card-title");
+
+			const courseCodeHeading = document.createElement("h3");
+			courseCodeHeading.textContent = courseCode;
+
+			const courseNameHeading = document.createElement("h2");
+			courseNameHeading.textContent = courseName;
+
+			titleDiv.appendChild(courseCodeHeading);
+			titleDiv.appendChild(courseNameHeading);
+
+			const teacherDiv = document.createElement("div");
+			teacherDiv.classList.add("teacher");
+
+			const teacherName = document.createElement("p");
+			teacherName.textContent = teacher;
+
+			teacherDiv.appendChild(teacherName);
+
+			innerDiv.appendChild(titleDiv);
+			innerDiv.appendChild(teacherDiv);
+
+			courseCard.appendChild(innerDiv);
+
+			// add click function to courseCard
+			courseCard.addEventListener("click", (e) => {
+				courseCard.style.backgroundColor = "red";
+				console.log(courseCard);
+			});
+
+			return courseGroup.appendChild(courseCard);
+		}
+	</script>
+</html>

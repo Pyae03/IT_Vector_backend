@@ -1,0 +1,11 @@
+.side-bar-and-main {
+	display: flex;
+}
+.side-bar {
+	width: 15%;
+	height: 90vh;
+}
+main {
+	margin: 1em;
+	width: 85%;
+}

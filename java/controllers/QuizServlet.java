@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.QuizDao;
+import dao.QuizQuestionDao;
 import models.QuizOption;
 import models.QuizQuestion;
 
@@ -30,7 +30,7 @@ public class QuizServlet extends HttpServlet {
 
 
             // Display the retrieved data
-            Map<Integer, QuizQuestion> questionsWithOptions = QuizDao.getQuestionsWithOptions();
+            Map<Integer, QuizQuestion> questionsWithOptions = QuizQuestionDao.getQuestionsWithOptions();
 
             // Display the retrieved data along with radio buttons and a submit button
             out.println("<html><head><title>Quiz Questions</title></head><body>");
