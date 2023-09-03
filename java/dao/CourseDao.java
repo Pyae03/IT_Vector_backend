@@ -55,7 +55,7 @@ public class CourseDao {
                     course.setCourseId(resultSet.getString("courseID"));
                     course.setCourseName(resultSet.getString("courseName"));
                     course.setCourseCode(resultSet.getString("courseCode"));
-                    course.setFilePath(resultSet.getString("filePath"));
+
                     course.setTeacher(resultSet.getString("teacher"));
                     course.setStartDate(resultSet.getDate("startDate"));
                     course.setEndDate(resultSet.getDate("endDate"));

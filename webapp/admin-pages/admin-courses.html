@@ -29,14 +29,14 @@
 					>DashBoard</a
 				>
 				<a
-					href="admin-event.html"
-					class=""
-					>Events</a
-				>
-				<a
 					href="admin-courses.html"
 					class="active"
-					>Course</a
+					>Courses</a
+				>
+				<a
+					href="admin-event.html"
+					class=""
+					>Event</a
 				>
 				<a
 					href="admin-database.html"
@@ -90,7 +90,7 @@ fetch('http://localhost:8080/IT_Vector_Ver1/CourseApiServlet', fetchOptions)
 		console.log("courses: ", courses)
 		// current is teacher id not teacher name.
 		// fix: teacher id to teacher name.
-		courses.forEach(course => createCourseCard(course.courseCode, course.courseName, course.teacher))		
+		courses.forEach(course => createCourseCard(course.courseCode, course.courseName, course.teacher, course.courseId))		
        
 	}
        
@@ -100,10 +100,9 @@ fetch('http://localhost:8080/IT_Vector_Ver1/CourseApiServlet', fetchOptions)
     });
   
     
-    function createCourseCard(courseCode, courseName, teacher) {
-    
+    function createCourseCard(courseCode, courseName, teacher, courseId) {
     const courseCard = document.createElement('a');
-    courseCard.href = ''; // Add the href attribute here if needed
+    courseCard.href = `http://localhost:8080/IT_Vector_Ver1/ModulePageServlet?courseId=${courseId}`; // Add the href attribute here
     courseCard.classList.add('course-card');
 
     const innerDiv = document.createElement('div');
@@ -133,16 +132,16 @@ fetch('http://localhost:8080/IT_Vector_Ver1/CourseApiServlet', fetchOptions)
 
     courseCard.appendChild(innerDiv);
 
+    // add click function to courseCard
+    courseCard.addEventListener("click", (e) => {
+        
+        courseCard.style.backgroundColor = "red"
+        console.log(courseCard)
+    })
 
-	// add click function to courseCard
-	courseCard.addEventListener("click", (e) => {
-		e.preventDefault()
-		courseCard.style.backgroundColor = "red"
-		console.log(courseCard)
-	})
-	return courseGroup.appendChild(courseCard);
-    
+    return courseGroup.appendChild(courseCard);
 }
+
 
 
 

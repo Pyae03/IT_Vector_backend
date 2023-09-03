@@ -44,22 +44,15 @@ body {
 		gap: 1em;
 		margin: 2.5em 5em;
 	}
-	.event-list {
-		display: flex;
-		flex-direction: column;
-		gap: 1em;
-	}
-	
 	.event-list,
 	.event-form,
 	.event-creation {
 		/* display: flex;
 		flex-direction: column; */
-		
 		border-radius: var(--btn-border-radius);
 
 		padding: 2em;
-		
+		background-color: var(--white-color);
 		box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
 			rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
 
@@ -98,9 +91,6 @@ body {
 		transition: 0.3s ease;
 	} */
 	/* add expand animation here */
-	.event-card {
-		background-color: var(--white-color);
-	}
 	article p {
 		color: var(--light-blue);
 		transition: 0.5s ease;
