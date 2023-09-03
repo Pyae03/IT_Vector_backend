@@ -337,4 +337,8 @@ body {
 		padding-right: 1em;
 		border-right: 1px solid var(--light-blue);
 	}
+	
+	.course-group > div {
+		border: 1px solid red;
+	}
 }

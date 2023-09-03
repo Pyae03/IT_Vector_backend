@@ -18,10 +18,10 @@
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/teacher-pages/teacher-create-task.style.css">
 		<link
 			rel="stylesheet"
-			href="${pageContext.request.contextPath}/teacher-nav-bar.style.css" />
+			href="${pageContext.request.contextPath}/teacher-pages/teacher-nav-bar.style.css" />
 		<link
 			rel="stylesheet"
-			href="user-side-bar.style.css" />
+			href="${pageContext.request.contextPath}/teacher-pages/user-side-bar.style.css" />
 
 		<link
 			rel="preconnect"

@@ -2,6 +2,10 @@
 <%@ page import="models.CourseModule" %>
 <%@ page import="models.CourseModuleMaterial" %>
 <%@ page import="java.util.List" %>
+<%@ page import="models.Category" %>
+<%@ page import="models.Quiz" %>
+<%@ page import="models.Assignment" %>
+<%@ page import="java.util.List" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -89,7 +93,59 @@
 					                     <%
 					                            }
 					                        }
-					                    %>
+					                    %></div>
+					                    
+					                    
+					                    <!-- QUIZ -->
+					                    <div class="module-outline">
+											<%
+												List<Quiz> quizes = (List<Quiz>) session.getAttribute("quizes");
+					                        if (modules != null) {
+					                            for (Quiz quiz : quizes) {
+					                            	if (quiz.getQuizID() == module.getModuleID()) {
+					                    	%>
+														<div class="material">
+												<a
+													href="http://localhost:8080/IT_Vector_Ver1/CoursePlayerServlet?quizID=<%= quiz.getQuizID() %>"
+													class=""
+													><span><ion-icon name="play-circle-outline"></ion-icon></span
+													><%= quiz.getQuizName() %></a
+												>
+												<span class="delete-course-module-material"
+													><ion-icon name="trash-outline"></ion-icon
+												></span>
+											</div>
+														
+												 <%
+					                            	}
+					                            }
+					                        }
+					                    	%></div>
+					                    	
+					                    	
+					                    	 <!-- QUIZ -->
+					                    	<div class="module-outline">
+											    <%
+											        List<Assignment> assignments = (List<Assignment>) session.getAttribute("assignments");
+											        if (assignments != null) {
+											            for (Assignment assignment : assignments) {
+											    %>
+											    <div class="material">
+											        <a href="http://localhost:8080/IT_Vector_Ver1/AssignmentPlayerServlet?assignmentID=<%= assignment.getAssignmentID() %>"
+											            class="">
+											            <span><ion-icon name="play-circle-outline"></ion-icon></span>
+											            <%= assignment.getAssignmentName() %>
+											        </a>
+											        <span class="delete-course-module-material">
+											            <ion-icon name="trash-outline"></ion-icon>
+											        </span>
+											    </div>
+											    <%
+											            }
+											        }
+											    %>
+											</div>
+					                    	
 										
 									</div>
 								</div>
@@ -99,12 +155,21 @@
                             }
                         }
                     %>
-                
+              	
         </div>
     </div>
     
     
     <script>
+    
+ // forms
+
+    const module_creation_form = document.querySelector(".module-creation-form");
+ 	const add_course_module = document.querySelector(".add-course-module")
+    add_course_module.addEventListener("click", () => {
+    	console.log("clicked");
+    	module_creation_form.classList.toggle("hidden");
+    });
     function createMaterialForm(moduleID) {
     	console.log("created!")
         // Create the main container for the form

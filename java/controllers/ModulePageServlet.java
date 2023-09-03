@@ -1,6 +1,7 @@
 package controllers;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,8 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import dao.AssignmentDao;
 import dao.CourseModuleDao;
+import dao.QuizDao;
+import models.Assignment;
 import models.CourseModule;
+import models.Quiz;
 
 @WebServlet("/ModulePageServlet")
 public class ModulePageServlet extends HttpServlet {
@@ -18,15 +23,15 @@ public class ModulePageServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Get the courseId parameter from the URL
+
         String courseIdStr = request.getParameter("courseId");
 
         if (courseIdStr != null) {
             try {
-                // Parse the courseId as needed
+
                 int courseId = Integer.parseInt(courseIdStr);
 
-                // Store courseId in the user's session
+
                 HttpSession session = request.getSession();
                 session.setAttribute("courseID", courseId);
                 //session.setMaxInactiveInterval(60 * 60 * 60);
@@ -35,12 +40,20 @@ public class ModulePageServlet extends HttpServlet {
                 CourseModuleDao courseModuleDao = new CourseModuleDao();
                 List<CourseModule> modules = courseModuleDao.getModulesByCourse(courseId);
 
-                // Store the modules in a request attribute for use in module-page.jsp
                 request.setAttribute("modules", modules);
 
-                // Redirect to the module page
+                // ASSIGNMENT
+               AssignmentDao assignmentDao = new AssignmentDao();
+               List<Assignment> assignments = assignmentDao.getAllAssignments();
+                session.setAttribute("assignments", assignments);
+                
+                //QUIZ
+                QuizDao quizDao = new QuizDao();
+                List<Quiz> quizes = quizDao.getAllQuizzes();
+                session.setAttribute("quizes", quizes);
+
                 request.getRequestDispatcher("admin-pages/admin-course-module.jsp").forward(request, response);
-            } catch (NumberFormatException e) {
+            } catch (NumberFormatException | SQLException e) {
                 // Handle the case where courseId is not a valid integer
                 response.sendRedirect("error-page.jsp"); // Redirect to an error page
             }

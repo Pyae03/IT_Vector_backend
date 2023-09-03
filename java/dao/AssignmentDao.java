@@ -89,4 +89,31 @@ public class AssignmentDao {
             return false;
         }
     }
+    
+    // get all assignment
+    public static List<Assignment> getAllAssignments() {
+        List<Assignment> assignments = new ArrayList<>();
+        String sql = "SELECT * FROM Assignment";
+        try (
+            Connection connection = DatabaseUtil.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql)
+        ) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                int assignmentID = resultSet.getInt("assignmentID");
+                String assignmentName = resultSet.getString("assignmentName");
+                String assignmentFilePath = resultSet.getString("assignmentFilePath");
+                int moduleID = resultSet.getInt("moduleID");
+
+                Assignment assignment = new Assignment(assignmentID, assignmentName, assignmentFilePath, moduleID);
+                assignments.add(assignment);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return assignments;
+    }
+
+	
 }
