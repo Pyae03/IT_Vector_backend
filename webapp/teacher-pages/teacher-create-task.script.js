@@ -48,28 +48,24 @@ function addOptionGroup() {
 
 	const radioButton = document.createElement("input");
 	radioButton.type = "radio";
-	radioButton.name = "quiz-question";
+	radioButton.name = "correctOptions[]";
+	radioButton.value = 0
 	//radioButton.required = true;
+	
+	radioButton.addEventListener("click", () => {
+		radioButton.value = 1
+		console.log("selected!")
+		
+	})
 
 	const optionInput = document.createElement("input");
 	optionInput.type = "text";
-	optionInput.name = "option";
+	optionInput.name = "optionTexts[]";
 	optionInput.required = true;
 
-	const correctAnswerSelect = document.createElement("select");
-	correctAnswerSelect.name = "correct-answer";
-	correctAnswerSelect.required = true;
+	
 
-	const correctOption = document.createElement("option");
-	correctOption.value = "true";
-	correctOption.textContent = "Correct";
-
-	const incorrectOption = document.createElement("option");
-	incorrectOption.value = "false";
-	incorrectOption.textContent = "Incorrect";
-
-	correctAnswerSelect.appendChild(incorrectOption);
-	correctAnswerSelect.appendChild(correctOption);
+	
 
 	const deleteButton = document.createElement("button");
 	deleteButton.textContent = "Delete";
@@ -78,7 +74,7 @@ function addOptionGroup() {
 
 	optionGroup.appendChild(radioButton);
 	optionGroup.appendChild(optionInput);
-	optionGroup.appendChild(correctAnswerSelect);
+	
 	optionGroup.appendChild(deleteButton);
 
 	optionsContainer.appendChild(optionGroup);
@@ -106,5 +102,32 @@ document.addEventListener("click", function (event) {
 	}
 });
 
+
+
+// Event listener for form submission
+quizForm.addEventListener("submit", function (event) {
+    // Find the selected radio button and set its value to "1"
+    const selectedRadioButton = document.querySelector('input[name="correctOptions[]"]:checked');
+    if (selectedRadioButton) {
+        selectedRadioButton.value = "1";
+    }
+    // The form will now be submitted with the correct values
+});
+
+
+
+// 	MAIN-QUIZ-WRAPPER
+
+const mainQuizForm = document.querySelector(".main-quiz-wrapper");
+const btnQuiz = document.querySelector(".btn-quiz");
+const closeBtnMainQuiz = document.querySelector(".close-button-main-quiz");
+btnQuiz.addEventListener("click", () => {
+	console.log("create");
+	mainQuizForm.style.display = "block";
+});
+
+closeBtnMainQuiz.addEventListener("click", () => {
+	mainQuizForm.style.display = "none";
+});
 // Todo: write code for java servlet
 // todo:  also style for quiz creation form

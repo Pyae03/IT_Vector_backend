@@ -13,6 +13,22 @@ public class Quiz {
         // Default constructor
     }
 
+    public Quiz(int quizID, String quizName, String description) {
+        this.quizID = quizID;
+        
+        this.quizName = quizName;
+        this.description = description;
+        
+    }
+
+    public Quiz(int courseID, int moduleID, String quizName, String description) {
+    	this.courseID = courseID;
+    	this.moduleID = moduleID;
+        this.quizName = quizName;
+        this.description = description;
+        
+    }
+
     public Quiz(int quizID, int courseID, int moduleID, String quizName, String description, int timeLimit) {
         this.quizID = quizID;
         this.courseID = courseID;

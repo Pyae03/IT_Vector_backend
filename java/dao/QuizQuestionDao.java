@@ -58,4 +58,41 @@ public class QuizQuestionDao {
          return questionsWithOptions;
     	}
     }
+
+    public static int createQuizQuestion(QuizQuestion question) throws SQLException {
+        try (Connection connection = DatabaseUtil.getConnection()) {
+            String insertQuestionSQL = "INSERT INTO QuizQuestion (quizID, questionText, categoryName) VALUES (?, ?, ?)";
+            PreparedStatement preparedStatement = connection.prepareStatement(insertQuestionSQL, PreparedStatement.RETURN_GENERATED_KEYS);
+            preparedStatement.setInt(1, question.getQuizID());
+            preparedStatement.setString(2, question.getQuestionText());
+            preparedStatement.setString(3, question.getCategoryName());
+            preparedStatement.executeUpdate();
+
+            ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+            int questionID = -1;
+            if (generatedKeys.next()) {
+                questionID = generatedKeys.getInt(1);
+            }
+
+            return questionID;
+        }
+    }
+    
+    public static QuizQuestion getLastQuizQuestion() throws SQLException {
+        try (Connection connection = DatabaseUtil.getConnection()) {
+            String query = "SELECT * FROM QuizQuestion ORDER BY questionID DESC LIMIT 1";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                int questionID = resultSet.getInt("questionID");
+                int quizID = resultSet.getInt("quizID");
+                String questionText = resultSet.getString("questionText");
+                String categoryName = resultSet.getString("categoryName");
+
+                return new QuizQuestion(questionID, quizID, questionText, categoryName);
+            }
+        }
+        return null; // Return null if no quiz questions are found
+    }
 }

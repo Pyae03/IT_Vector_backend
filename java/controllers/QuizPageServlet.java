@@ -1,7 +1,6 @@
 package controllers;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,13 +11,11 @@ import javax.servlet.http.HttpSession;
 
 import dao.CategoryDao;
 import dao.CourseModuleDao;
-import dao.QuizDao;
 import models.Category;
 import models.CourseModule;
-import models.Quiz;
 
-@WebServlet("/AssignmentPageServlet")
-public class AssignmentPageServlet extends HttpServlet {
+@WebServlet("/QuizPageServlet")
+public class QuizPageServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -39,26 +36,27 @@ public class AssignmentPageServlet extends HttpServlet {
                 // Get all categories
                 //CategoryDao categoryDao = new CategoryDao();
                 List<Category> categories = CategoryDao.getAllCategories();
+                for(Category category: categories) {
+                	System.out.println("Category: "  + category.getCategoryName());
+                }
                 
                 session.setAttribute("categories", categories);
-                //List<Category> sessionCategories = (List<Category>) session.getAttribute("categories");
+                List<Category> sessionCategories = (List<Category>) session.getAttribute("categories");
                 
-                
+                for(Category category: sessionCategories) {
+                	System.out.println("Category: "  + category.getCategoryName());
+                }
                 
                 // Get course modules for the specified courseId
                 CourseModuleDao courseModuleDao = new CourseModuleDao();
                 List<CourseModule> modules = courseModuleDao.getModulesByCourseForAssignment(courseId);
 
 
-                // set quiz compound for jsp
-                List <Quiz> quizes = QuizDao.getAllQuizzes();
-                session.setAttribute("quizes", quizes);
-                
-                // set modules for jsp
                 request.setAttribute("modules", modules);
-                
+                //session.setAttribute("moduleID", mo);
+                // Redirect to the module page
                 request.getRequestDispatcher("teacher-pages/teacher-create-task.jsp").forward(request, response);
-            } catch (NumberFormatException | SQLException e) {
+            } catch (NumberFormatException e) {
 
                 response.sendRedirect("error-page.jsp"); // Redirect to an error page
             }

@@ -9,6 +9,13 @@ public class QuizOption {
     // Constructors, getters, and setters
     // ...
 
+    public QuizOption(int questionID, String optionText, boolean isCorrect) {
+
+    	
+    	this.questionID = questionID;
+    	this.optionText = optionText;
+    	this.isCorrect = isCorrect;
+	}
     public QuizOption(int quizOptionID, int questionID, String optionText, boolean isCorrect) {
 
     	this.quizOptionID = quizOptionID;
@@ -36,8 +43,13 @@ public class QuizOption {
 	public int getOptionID() {
 		return this.quizOptionID;
 	}
+	
+	public int getQuestionID() {
+	
+		return this.questionID;
+	}
 
-
+	
 
 
 

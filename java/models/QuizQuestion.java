@@ -13,6 +13,12 @@ public class QuizQuestion {
     // Constructors, getters, and setters
     // ...
 
+    public QuizQuestion(int quizID, String questionText, String categoryName) {
+		
+		this.quizID = quizID;
+		this.questionText = questionText;
+		this.categoryName = categoryName;
+	}
     public QuizQuestion(int questionID, int quizID, String questionText, String categoryName) {
 		this.questionID = questionID;
 		this.quizID = quizID;
@@ -51,6 +57,11 @@ public class QuizQuestion {
 	public int getQuizID() {
 
 		return this.quizID;
+	}
+
+	public int getQuestionID() {
+		// TODO Auto-generated method stub
+		return this.questionID;
 	}
 
 	

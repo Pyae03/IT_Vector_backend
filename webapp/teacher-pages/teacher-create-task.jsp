@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="models.CourseModule" %>
 <%@ page import="models.CourseModuleMaterial" %>
+<%@ page import="models.Category" %>
+<%@ page import="models.Quiz" %>
 <%@ page import="java.util.List" %>
 
 <!DOCTYPE html>
@@ -107,7 +109,8 @@
 				<main>
 					<div class="create-tasks">
 						<button class="btn-create-assignment">Create Assignment</button>
-						<button class="btn-create-quiz">Add Quiz</button>
+						<button class="btn-create-quiz">Add Quiz Question</button>
+						<button class="btn-quiz">Create Quiz </button>
 						<!-- <button class="btn-create-homework">Create Homework</button> -->
 					</div>
 
@@ -151,6 +154,7 @@
 									
 									
 				<select name="get-module" id="">
+				<!-- ASSIGNMENT -->
 								<%
                         List<CourseModule> modules = (List<CourseModule>) request.getAttribute("modules");
                         if (modules != null) {
@@ -178,32 +182,18 @@
 							<h2>Quiz</h2>
 						</nav>
 
-						<form id="quizForm">
+						<form id="quizForm" action="AddQuizQuestionServlet" method="post" >
 							<div class="quiz-question">
 								<label for="title">Quiz Question</label>
 								<input
 									type="text"
-									name="title"
+									name="questionText"
 									required />
 							</div>
 
 							<div class="quiz-options">
 								<div class="quiz-option-group">
-									<!-- <input
-										type="radio"
-										name="quiz-question"
-										required />
-									<input
-										type="text"
-										name="option"
-										required />
-									<select
-										name="correct-answer"
-										required>
-										<option value="false">Incorrect</option>
-										<option value="true">Correct</option>
-									</select>
-									<button class="btn-delete-option">Delete</button> -->
+									<!-- radio button group here-->
 								</div>
 							</div>
 
@@ -211,12 +201,105 @@
 								<button class="btn-add-option">Add Option</button>
 							</div>
 
+							<select name="categoryName" id="">	
+								
+							<%
+								List<Category> categories = (List<Category>) session.getAttribute("categories");
+	                        if (modules != null) {
+	                            for (Category category : categories) {
+	                    	%>
+										<option  value="<%= category.getCategoryName() %>"><%= category.getCategoryName() %></option>
+										
+							 <%
+                            }
+                        }
+                    	%>
+                    	
+                    	</select>
+                    	
+                    	<!-- QUIZ QUESTION -->
+                    	
+                    	<select name="quiz" id="">		
+							<%
+								List<Quiz> quizes = (List<Quiz>) session.getAttribute("quizes");
+	                        if (modules != null) {
+	                            for (Quiz quiz : quizes) {
+	                    	%>
+										<option  value="<%= quiz.getQuizID() %>"><%= quiz.getQuizName() %></option>
+										
+							 <%
+                            }
+                        }
+                    	%>
+                    	</select>
+                    	
 							<input
 								type="submit"
 								value="Create Quiz" />
 						</form>
 					</div>
 
+
+				<!-- QUIZ -->
+					<div class="main-quiz-wrapper">
+						<nav>
+							<span class="close-button-main-quiz"
+								><ion-icon name="close-outline"></ion-icon
+							></span>
+							<h2>Quiz</h2>
+						</nav>
+
+						<form action="AddQuizServlet" method="post">
+						
+							<!--<input type="text" name="courseID" style="display: none"> -->
+							
+							<div class="assignment-title">
+								<label for="title">Quiz Name</label>
+								<input
+									type="text"
+									name="quizName" />
+							</div>
+
+							<div class="description">
+								<label for="instructions">Instructions (optional) </label>
+								<textarea
+									name="description"
+									id=""
+									cols="30"
+									rows="10"></textarea>
+							</div>
+
+							<div class="assignment-side-bar">
+								<h3>Course Title: <span>Web Application Development</span></h3>
+								<label for="end-date">Time Limit</label>
+								<input
+									type="number"
+									name="timeLimit" />
+
+						<select name="get-module" id="">
+						<!-- Quiz -->
+								<%
+	                        List<CourseModule> modules1 = (List<CourseModule>) request.getAttribute("modules");
+	                        if (modules1 != null) {
+	                            for (CourseModule module1 : modules1) {
+	                    	%>
+										<option value="<%= module1.getModuleID() %>"><%= module1.getModuleTitle() %></option>
+										
+							 <%
+	                            }
+	                        }
+	                    	%>
+						</select>
+
+								<input
+									type="submit"
+									value="Submit" />
+							</div>
+						</form>
+					</div>
+
+
+				<!-- TODO LIST -->
 					<div class="todo-list">
 						<div class="todo-assignment-group">
 							<h3>Assignment List</h3>
