@@ -11,12 +11,11 @@ import models.CourseModuleMaterial;
 import util.DatabaseUtil;
 
 public class CourseModuleMaterialDao {
-    // Use DatabaseUtil.getConnection() directly
-    
 
-    // Rest of your code remains the same...
+
+  
     
-    // Add a new course module material
+    // add new course module material
     public static boolean addMaterial(CourseModuleMaterial material) {
         String sql = "INSERT INTO CourseModuleMaterial (moduleID, materialName, materialDescription, filePath) VALUES (?, ?, ?, ?)";
 
@@ -35,7 +34,7 @@ public class CourseModuleMaterialDao {
         }
     }
 
-    // Retrieve all materials for a specific module
+    // get all materials for a specific module
     public List<CourseModuleMaterial> getMaterialsByModule(int moduleID) {
         List<CourseModuleMaterial> materials = new ArrayList<>();
         String sql = "SELECT * FROM CourseModuleMaterial WHERE moduleID = ?";
@@ -70,7 +69,7 @@ public class CourseModuleMaterialDao {
         CourseModuleMaterial material = null;
 
         try {
-            // Obtain a database connection using DatabaseUtil.getConnection()
+
             connection = DatabaseUtil.getConnection();
 
             String query = "SELECT * FROM CourseModuleMaterial WHERE materialID=?";
@@ -87,7 +86,7 @@ public class CourseModuleMaterialDao {
                 material.setMaterialName(resultSet.getString("materialName"));
                 material.setMaterialDescription(resultSet.getString("materialDescription"));
                 material.setFilePath(resultSet.getString("filePath"));
-                // Set other properties as needed
+                // set other properties as needed
             }
         } catch(Exception e) {
         	
@@ -96,8 +95,24 @@ public class CourseModuleMaterialDao {
         return material;
     }
     
-    // Other methods (update, delete, etc.) can be added as needed
+    //my update, delete, etc.
     
+ 
+    public static boolean deleteMaterial(int materialID) {
+        String sql = "DELETE FROM CourseModuleMaterial WHERE materialID = ?";
+
+        try (Connection connection = DatabaseUtil.getConnection();
+                PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, materialID);
+
+            int rowsDeleted = statement.executeUpdate();
+            return rowsDeleted > 0; 
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false; 
+        }
+    }
+
     
     
 }

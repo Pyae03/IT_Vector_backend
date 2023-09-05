@@ -209,6 +209,50 @@ public class UserDao {
 		
 		
 	}
+	
+	// get total number of users
+    public static int getTotalUsers() {
+        int totalUsers = 0;
+        try (Connection connection = DatabaseUtil.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement("SELECT COUNT(*) FROM User");
+             ResultSet resultSet = preparedStatement.executeQuery()) {
+
+            if (resultSet.next()) {
+                totalUsers = resultSet.getInt(1); 
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return totalUsers;
+    }
+    public static int getTotalUsersWithRole(String role) {
+        int totalUsers = 0;
+        try (Connection connection = DatabaseUtil.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement("SELECT COUNT(*) FROM User WHERE userRole=\""+ role +"\"");
+             ResultSet resultSet = preparedStatement.executeQuery()) {
+
+            if (resultSet.next()) {
+                totalUsers = resultSet.getInt(1); 
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return totalUsers;
+    }
+    
+    public static int getTotalStudents() {
+    	int totalStudents =  getTotalUsersWithRole("Student");
+       return totalStudents;
+    }
+    public static int getTotalTeachers() {
+    	int totalTeachers =  getTotalUsersWithRole("Teacher");
+       return totalTeachers;
+    }
+    public static int getTotalAdmins() {
+    	int totalAdmins =  getTotalUsersWithRole("Admin");
+       return totalAdmins;
+    }
+
 
 
 }

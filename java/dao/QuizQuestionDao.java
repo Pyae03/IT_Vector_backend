@@ -93,6 +93,46 @@ public class QuizQuestionDao {
                 return new QuizQuestion(questionID, quizID, questionText, categoryName);
             }
         }
-        return null; // Return null if no quiz questions are found
+        return null; // eeturn null if no quiz questions are found
     }
+    
+    
+    public static Map<Integer, QuizQuestion> getQuestionsWithOptionsByQuizID(int quizID) throws SQLException {
+        try (Connection connection = DatabaseUtil.getConnection()) {
+
+            Map<Integer, QuizQuestion> questionsWithOptions = new HashMap<>();
+
+            String query = "SELECT qq.*, qo.* " +
+                    "FROM QuizQuestion qq " +
+                    "LEFT JOIN QuizOption qo ON qq.questionID = qo.questionID " +
+                    "WHERE qq.quizID = ?"; 
+
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, quizID); 
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                int questionID = resultSet.getInt("qq.questionID");
+                String questionText = resultSet.getString("qq.questionText");
+                String categoryName = resultSet.getString("qq.categoryName");
+                int quizOptionID = resultSet.getInt("qo.quizOptionID");
+                String optionText = resultSet.getString("qo.optionText");
+                boolean isCorrect = resultSet.getBoolean("qo.isCorrect");
+
+                
+                if (!questionsWithOptions.containsKey(questionID)) {
+                    QuizQuestion question = new QuizQuestion(questionID, quizID, questionText, categoryName);
+                    questionsWithOptions.put(questionID, question);
+                }
+
+                
+                QuizQuestion question = questionsWithOptions.get(questionID);
+                question.addOption(new QuizOption(quizOptionID, questionID, optionText, isCorrect));
+            }
+
+            return questionsWithOptions;
+        }
+    }
+
 }

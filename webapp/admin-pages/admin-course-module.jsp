@@ -54,7 +54,7 @@
                     %>
                         
                     
-				                    	<div class="course-module">
+		                    	<div class="course-module">
 									<h2 class="module-title">
 										<%= module.getModuleTitle() %>
 										
@@ -71,7 +71,7 @@
 									<!-- for id for js -->
 									<!--<span style="display:none"><%= module.getModuleID() %> </span>-->
 									
-									
+									<!-- <div class="module-outline">  add one </div> at the end of "%>" -->
 									<div class="module-outline">
 										<!-- query each material here -->
 										<%
@@ -86,69 +86,79 @@
 													><span><ion-icon name="play-circle-outline"></ion-icon></span
 													><%= material.getMaterialName() %></a
 												>
+												<a href="DeleteServlet?materialID=<%= material.getMaterialID() %>&type=material">
 												<span class="delete-course-module-material"
 													><ion-icon name="trash-outline"></ion-icon
 												></span>
+												</a>
 											</div>
 					                     <%
 					                            }
 					                        }
-					                    %></div>
+					                    %>
+				                    
 					                    
 					                    
 					                    <!-- QUIZ -->
-					                    <div class="module-outline">
+					                    <!-- <div class="module-outline"> -->
+					                    
 											<%
 												List<Quiz> quizes = (List<Quiz>) session.getAttribute("quizes");
 					                        if (modules != null) {
 					                            for (Quiz quiz : quizes) {
-					                            	if (quiz.getQuizID() == module.getModuleID()) {
+					                            	if (quiz.getModuleID() == module.getModuleID()) {
 					                    	%>
-														<div class="material">
+											<div class="material">
 												<a
-													href="http://localhost:8080/IT_Vector_Ver1/CoursePlayerServlet?quizID=<%= quiz.getQuizID() %>"
+													href="http://localhost:8080/IT_Vector_Ver1/QuizServlet?quizID=<%= quiz.getQuizID() %>"
 													class=""
 													><span><ion-icon name="play-circle-outline"></ion-icon></span
 													><%= quiz.getQuizName() %></a
 												>
-												<span class="delete-course-module-material"
-													><ion-icon name="trash-outline"></ion-icon
-												></span>
+												<a href="DeleteServlet?quizID=<%= quiz.getQuizID() %>&type=quiz">
+													<span class="delete-course-module-material"
+														><ion-icon name="trash-outline"></ion-icon
+													></span>
+												</a>
 											</div>
 														
 												 <%
 					                            	}
 					                            }
 					                        }
-					                    	%></div>
+					                    	%>
+				                    	
 					                    	
 					                    	
 					                    	 <!-- QUIZ -->
-					                    	<div class="module-outline">
+					                    	 <!-- <div class="module-outline"> -->
+				                    	
 											    <%
 											        List<Assignment> assignments = (List<Assignment>) session.getAttribute("assignments");
 											        if (assignments != null) {
 											            for (Assignment assignment : assignments) {
+											            	if(assignment.getModuleID() == module.getModuleID()) {
 											    %>
 											    <div class="material">
-											        <a href="http://localhost:8080/IT_Vector_Ver1/AssignmentPlayerServlet?assignmentID=<%= assignment.getAssignmentID() %>"
+											        <a href="http://localhost:8080/IT_Vector_Ver1/AssignmentPageServlet?assignmentID=<%= assignment.getAssignmentID() %>"
 											            class="">
 											            <span><ion-icon name="play-circle-outline"></ion-icon></span>
 											            <%= assignment.getAssignmentName() %>
 											        </a>
-											        <span class="delete-course-module-material">
-											            <ion-icon name="trash-outline"></ion-icon>
-											        </span>
+											        <a href="DeleteServlet?assignmentID=<%= assignment.getAssignmentID() %>&type=assignment">
+												        <span class="delete-course-module-material">
+												            <ion-icon name="trash-outline"></ion-icon>
+												        </span>
+											        </a>
 											    </div>
 											    <%
+											            	}
 											            }
 											        }
 											    %>
-											</div>
-					                    	
 										
-									</div>
-								</div>
+					                    	</div>
+									
                     
                     
                     <%
@@ -159,9 +169,7 @@
         </div>
     </div>
     
-    
     <script>
-    
  // forms
 
     const module_creation_form = document.querySelector(".module-creation-form");
@@ -254,6 +262,7 @@
      	formContainer.remove()
     }
     </script>
+    <!-- <script src="${pageContext.request.contextPath}/admin-pages/admin-course-module.script.js"></script>-->
 </body>
 
 

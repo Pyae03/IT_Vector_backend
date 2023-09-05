@@ -34,7 +34,7 @@ const btn_create = document.querySelector(".btn-create");
             const formData = new FormData(form);
 			const obj = {
 				eventTitle : form[0].value,
-				eventDate : form[1].value,
+				eventDate : form[1].value, // date error
 				eventType : form[2].value,
 				eventDescription : form[3].value
 			}

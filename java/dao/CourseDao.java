@@ -11,35 +11,7 @@ import models.Course;
 import util.DatabaseUtil;
 
 public class CourseDao {
-    private Connection connection;
 
-//    public CourseDao(Connection connection) {
-//        this.connection = connection;
-//    }
-
-    // Insert a new course
-    public boolean addCourse(Course course) {
-		return false;
-
-    }
-
-    // Update an existing course
-    public boolean updateCourse(Course course) {
-		return false;
-
-    }
-
-    // Delete a course by its ID
-    public boolean deleteCourse(int courseId) {
-		return false;
-
-    }
-
-    // Retrieve a course by its ID
-    public Course getCourseById(int courseId) {
-		return null;
-
-    }
 
     // Retrieve all courses
     @SuppressWarnings("null")

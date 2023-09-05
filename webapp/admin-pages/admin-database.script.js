@@ -56,6 +56,7 @@ function createUserDetail(userName, gender, dateOfBirth, userID, email) {
 	// Create the user's name
 	const username = document.createElement("p");
 	username.textContent = userName;
+	username.className = "search-name";
 
 	// Append image and name to the profile link
 	profileLink.appendChild(profileImage);
@@ -123,7 +124,7 @@ function createUserDetail(userName, gender, dateOfBirth, userID, email) {
 
 //<!--function for user deletion -->
 function userDeletion(currentUserID) {
-	fetch("http://localhost:8080/IT_Vector_1/UserDeleteApiServlet", {
+	fetch("http://localhost:8080/IT_Vector_Ver1/UserDeleteApiServlet", {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
@@ -132,6 +133,7 @@ function userDeletion(currentUserID) {
 	})
 		.then(function (response) {
 			if (response.ok) {
+				location.reload();
 			} else {
 			}
 		})
@@ -142,7 +144,7 @@ function userDeletion(currentUserID) {
 
 let currentUserID;
 userUpdateForm.addEventListener("submit", function (event) {
-	event.preventDefault();
+	//event.preventDefault();
 
 	// Get form data
 	const formData = new FormData(event.target);
@@ -155,7 +157,7 @@ userUpdateForm.addEventListener("submit", function (event) {
 
 	console.log("Form data as JSON:", jsonObject);
 
-	fetch("http://localhost:8080/Test/UserUpdateApiServlet", {
+	fetch("http://localhost:8080/IT_Vector_Ver1/UserUpdateApiServlet", {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
@@ -187,8 +189,37 @@ const user_creation_form = document.querySelector(".user-creation-form");
 btn_add_user.addEventListener("click", () => {
 	user_creation_form.classList.toggle("hidden");
 });
+console.log("just pirint console.")
 
-const user_name = document.querySelectorAll(".user-name");
-user_name.forEach((un) => console.log(un.textContent));
 
 // implement search user features
+const searchBar = document.querySelector(".search-for-name")
+const btnSearch = document.querySelector(".btn-search")
+btnSearch.addEventListener("click", () => {
+	//const user_name = document.querySelectorAll(".search-name");
+	//console.log("users: ", user_name)
+	const user_info_detail = document.querySelectorAll(".user-info-detail")
+	
+		user_info_detail.forEach(user => {
+			
+			username = user.children[0].children[0].children[1].textContent.toString().toLowerCase()
+			
+			
+			if(!username.includes(searchBar.value.toLowerCase())){
+				
+				user.classList.add("hidden")				
+						 
+				 
+			}else {
+				console.log(searchBar.value,"uname",  username)
+					user.classList.remove("hidden")
+		}
+				
+		})
+		
+		
+	
+	//console.log("value: ", searchBar.value)
+	//console.count("user: ", searchBar.value)
+});
+

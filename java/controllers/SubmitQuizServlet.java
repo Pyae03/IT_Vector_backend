@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import dao.QuizQuestionDao;
 import dao.QuizResultDao;
 import models.QuizOption;
 import models.QuizQuestion;
@@ -33,11 +34,14 @@ public class SubmitQuizServlet extends HttpServlet {
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
 
+        HttpSession session = request.getSession();
+        
+        int quizID = (int) session.getAttribute("quizID");
         try (Connection connection = DatabaseUtil.getConnection()) {
-            Map<Integer, QuizQuestion> questionsWithOptions = getQuestionsWithOptions(connection);
+            Map<Integer, QuizQuestion> questionsWithOptions = QuizQuestionDao.getQuestionsWithOptionsByQuizID(quizID);
 
             int score = 0; // Initialize the user's score
-            int quizID = 0; 
+             
             out.println("<html><head><title>Quiz Results</title></head><body>");
 
             for (Map.Entry<Integer, QuizQuestion> entry : questionsWithOptions.entrySet()) {
@@ -75,7 +79,7 @@ public class SubmitQuizServlet extends HttpServlet {
 
             out.println("<p>Your Total Score: " + score + "</p>");
             
-            HttpSession session = request.getSession();
+            //HttpSession session = request.getSession();
             User currentUser = (User) session.getAttribute("user");
             System.out.println("current user: " + currentUser.getUserID() + currentUser.getUsername());            
             QuizResult quizResult = new QuizResult(quizID, currentUser.getUserID(), score);
@@ -103,35 +107,5 @@ public class SubmitQuizServlet extends HttpServlet {
         return null;
     }
 
-    private Map<Integer, QuizQuestion> getQuestionsWithOptions(Connection connection) throws SQLException {
-        Map<Integer, QuizQuestion> questionsWithOptions = new HashMap<>();
-
-        String query = "SELECT qq.*, qo.* " +
-                "FROM QuizQuestion qq " +
-                "LEFT JOIN QuizOption qo ON qq.questionID = qo.questionID";
-        try (PreparedStatement preparedStatement = connection.prepareStatement(query);
-             ResultSet resultSet = preparedStatement.executeQuery()) {
-            while (resultSet.next()) {
-                int questionID = resultSet.getInt("qq.questionID");
-                int quizID = resultSet.getInt("qq.quizID");
-                String questionText = resultSet.getString("qq.questionText");
-                String categoryName = resultSet.getString("qq.categoryName");
-                int quizOptionID = resultSet.getInt("qo.quizOptionID");
-                String optionText = resultSet.getString("qo.optionText");
-                boolean isCorrect = resultSet.getBoolean("qo.isCorrect");
-
-                // Check if the question already exists in the map
-                if (!questionsWithOptions.containsKey(questionID)) {
-                    QuizQuestion question = new QuizQuestion(questionID, quizID, questionText, categoryName);
-                    questionsWithOptions.put(questionID, question);
-                }
-
-                // Add the option to the corresponding question
-                QuizQuestion question = questionsWithOptions.get(questionID);
-                question.addOption(new QuizOption(quizOptionID, questionID, optionText, isCorrect));
-            }
-        }
-
-        return questionsWithOptions;
-    }
+    
 }

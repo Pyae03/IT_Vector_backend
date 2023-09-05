@@ -42,7 +42,7 @@ public class AssignmentPageServlet extends HttpServlet {
                 
                 session.setAttribute("categories", categories);
                 //List<Category> sessionCategories = (List<Category>) session.getAttribute("categories");
-                
+                	
                 
                 
                 // Get course modules for the specified courseId

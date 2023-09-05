@@ -20,7 +20,7 @@ public class EventCreateApiServlet extends HttpServlet {
     	
     	// Set CORS headers
         response.setHeader("Access-Control-Allow-Origin", "*"); // Allow requests from any origin (you can restrict it to specific origins)
-        response.setHeader("Access-Control-Allow-Methods", "GET"); // Allow only GET requests
+        response.setHeader("Access-Control-Allow-Methods", "POST"); // Allow only GET requests
         response.setHeader("Access-Control-Allow-Headers", "Content-Type"); // Allow specified headers
         response.setContentType("application/json");
 

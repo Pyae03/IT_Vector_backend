@@ -1,6 +1,8 @@
 package controllers;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -26,6 +28,8 @@ public class CoursePlayerServlet extends HttpServlet {
         try {
             // Query for the specific course material based on materialID
             CourseModuleMaterial material = materialDao.getMaterialByID(materialID);
+
+
 
             // Set the material as an attribute in the request so that the JSP can access it
             request.setAttribute("courseMaterial", material);

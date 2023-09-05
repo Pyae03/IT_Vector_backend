@@ -66,13 +66,20 @@ public class QuizDao {
     }
 
     // Delete an existing quiz by ID
-    public static void deleteQuiz(int quizID) throws SQLException {
+    public static boolean deleteQuiz(int quizID) throws SQLException {
         try (Connection connection = DatabaseUtil.getConnection()) {
             String deleteQuizSQL = "DELETE FROM Quiz WHERE quizID = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(deleteQuizSQL);
             preparedStatement.setInt(1, quizID);
             preparedStatement.executeUpdate();
+            
+            return true;
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
         }
+        
     }
 
 	

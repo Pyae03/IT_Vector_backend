@@ -35,41 +35,32 @@ public class UserController extends HttpServlet {
     @Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String action = request.getParameter("action");
-
-        System.out.println("action: " + action);
-        if (action == null) {
-            action = "create"; // Default action
-        }
-
-        switch (action) {
-            case "list":
-                listUsers(request, response);
-                break;
-//            case "edit":
-//                showEditForm(request, response);
-//                break;
-            case "update":
-                updateUser(request, response);
-                break;
-            case "delete":
-                deleteUser(request, response);
-                break;
-            case "create": 
-            	
-            
-				try {
-					System.out.println("creating...");
-					createUser(request, response);
-				} catch (ServletException | IOException | ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-	        
-            	break;
-            default:
-                listUsers(request, response);
-        }
+    	String username = request.getParameter("username");
+    	String password = request.getParameter("password");
+    	String email = request.getParameter("email"); // must be unique
+    	String gender = request.getParameter("gender");
+    	String role = request.getParameter("role");
+    	String DOB = request.getParameter("date-of-birth");
+    	 
+    	System.out.println(username + password + email +  gender + DOB);
+     
+    	Date dateOfBrith = null;
+		try {
+			dateOfBrith = new SimpleDateFormat("yyyy-MM-dd").parse(DOB);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+		User newUser = new User(username, password, email, gender, dateOfBrith);
+		
+		boolean userCreated = UserDao.createUser(newUser, role);
+		
+		if(userCreated) {
+			response.sendRedirect("admin-database.html");
+		} else {
+			response.sendRedirect("admin-dashboard.jsp");
+		}
     }
 
     private void listUsers(HttpServletRequest request, HttpServletResponse response)
@@ -78,20 +69,7 @@ public class UserController extends HttpServlet {
         request.setAttribute("users", users);
         RequestDispatcher dispatcher = request.getRequestDispatcher("user-list.jsp");
         dispatcher.forward(request, response);
-    }
-
-
-
-    private void updateUser(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        // Implement updating user details
-    }
-
-    private void deleteUser(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        // Implement user deletion
-    }
-    
+    } 
     // for admin
     private void createUser(HttpServletRequest request, HttpServletResponse response) 
     	throws ServletException, IOException, ParseException {

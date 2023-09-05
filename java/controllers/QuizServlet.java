@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.QuizQuestionDao;
 import models.QuizOption;
@@ -28,9 +29,13 @@ public class QuizServlet extends HttpServlet {
 
         try {
 
-
+        	int quizID = Integer.parseInt(request.getParameter("quizID"));
+        	HttpSession session = request.getSession();
+        	
+        	
+        	
             // Display the retrieved data
-            Map<Integer, QuizQuestion> questionsWithOptions = QuizQuestionDao.getQuestionsWithOptions();
+            Map<Integer, QuizQuestion> questionsWithOptions = QuizQuestionDao.getQuestionsWithOptionsByQuizID(quizID);
 
             // Display the retrieved data along with radio buttons and a submit button
             out.println("<html><head><title>Quiz Questions</title></head><body>");
@@ -61,7 +66,9 @@ public class QuizServlet extends HttpServlet {
             out.println("</form>");
 
             out.println("</body></html>");
-
+            
+            // for submit quiz servlet
+            session.setAttribute("quizID", quizID);
 
             // Collecting quiz
             //List<QuizQuestion> quizzes = question;

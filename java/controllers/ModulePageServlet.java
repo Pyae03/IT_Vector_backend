@@ -16,6 +16,7 @@ import dao.QuizDao;
 import models.Assignment;
 import models.CourseModule;
 import models.Quiz;
+import models.User;
 
 @WebServlet("/ModulePageServlet")
 public class ModulePageServlet extends HttpServlet {
@@ -31,10 +32,17 @@ public class ModulePageServlet extends HttpServlet {
 
                 int courseId = Integer.parseInt(courseIdStr);
 
+                
 
                 HttpSession session = request.getSession();
                 session.setAttribute("courseID", courseId);
                 //session.setMaxInactiveInterval(60 * 60 * 60);
+                
+                //User currentUser  = (User) session.getAttribute("user");
+                //	System.out.println("current User:" + currentUser);
+                //	System.out.println("username: " + currentUser.getUsername());
+                //	System.out.println("userRole: " + currentUser.getUserRole());
+                
                 
                 // Get course modules for the specified courseId
                 CourseModuleDao courseModuleDao = new CourseModuleDao();

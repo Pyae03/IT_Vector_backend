@@ -1,10 +1,13 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="dao.UserDao" %>
+
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<link rel="stylesheet" href="admin-dashboard.style.css">
+		<link rel="stylesheet" href="${pageContext.request.contextPath}/admin-pages/admin-dashboard.style.css">
 		<link
 			rel="stylesheet"
-			href="admin-nav-bar.style.css" />
+			href="${pageContext.request.contextPath}/admin-pages/admin-nav-bar.style.css" />
 
 		<meta charset="UTF-8" />
 		<meta
@@ -13,7 +16,7 @@
 		<title>Admin</title>
 	</head>
 	<body>
-		<nav>
+		<nav>	
 			<div class="logo">
 				<img
 					src="image/logo.svg"
@@ -22,7 +25,7 @@
 			</div>
 
 			<div class="view-options">
-				<a href="admin-dashboard.html" class="active">DashBoard</a>
+				<a href="admin-dashboard.jsp" class="active">DashBoard</a>
 				<a
 					href="admin-courses.html"
 					class=""
@@ -70,12 +73,12 @@
 					<div class="card">
 						<img src="image/student.svg" alt="">
 						<h3>Total Students</h3>
-						<h3>58</h3>
+						<h3><%= UserDao.getTotalStudents() %></h3>
 					</div>
 					<div class="card">
 						<img src="image/teacher.svg" alt="">
 						<h3>Total Teachers</h3>
-						<h3>3</h3>
+						<h3><%= UserDao.getTotalTeachers() %></h3>
 					</div>
 					<div class="card">
 						<img src="image/course.svg" alt="">
@@ -84,8 +87,8 @@
 					</div>
 					<div class="card">
 						<img src="image/user-default.svg" alt="">
-						<a href="admin-total-user.html"><h3>Total Users</h3></a>
-						<h3>67</h3>
+						<a href="admin-database.html"><h3>Total Users</h3></a>
+						<h3><%= UserDao.getTotalUsers() %></h3>
 					</div>
 					<div class="card">
 						<img src="image/certificate.svg" alt="">
@@ -101,12 +104,15 @@
 
 
 				<div class="user-creation-form hidden">
-					<form action="">
+					<form action="UserController">
 						<label for="username">Username</label>
-						<input type="text" id="username" required>
+						<input type="text" id="username" name="username" required>
+						
+						<label for="password">Password</label>
+						<input type="text" id="password" name="password" required>
 						
 						<label for="email">Email</label>
-						<input type="email" required>
+						<input type="email" name="email" required>
 
 						<label for="gender" >Gender</label>
 						<select name="gender" id="gender" required>
@@ -115,12 +121,13 @@
 						</select>
 
 						<label for="date-of-birth">Date of Birth</label>
-						<input type="date" id="date-of-birth">
+						<input type="date" id="date-of-birth" name="date-of-birth">
 
-						<label for="course">Select Course</label>
-						<select name="course" id="course">
-							<option value="Web Application Development">Web Applicaton Development</option>
-							<option value="Introduction to Computer Science">Introduction to Computer Science</option>
+						<label for="course">Select Role</label>
+						<select name="role" id="role">
+							<option value="Student">Student</option>
+							<option value="Teacher">Teacher</option>
+							<option value="Admin">Admin</option>
 						</select>
 
 						<div class="btn-confirm">
@@ -137,7 +144,7 @@
 		</div>
 		</div>
 
-		<script src="admin-dashboard.script.js"></script>
+		<script src="${pageContext.request.contextPath}/admin-pages/admin-dashboard.script.js"></script>
 		
 	</body>
 </html>
