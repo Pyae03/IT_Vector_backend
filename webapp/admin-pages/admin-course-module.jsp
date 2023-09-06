@@ -17,7 +17,7 @@
 </head>
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-<script src="${pageContext.request.contextPath}/admin-pages/admin-course-module.script.js"></script>
+
 
 <body>
     <div class="container">
@@ -41,7 +41,8 @@
 
 <!--  here repaste form meterial -->
 
-        
+                        		
+     		<!-- -------------------------------------------------------- -->
 
         <!-- course module section -->
         <div class="course-module-group">
@@ -52,16 +53,29 @@
                         if (modules != null) {
                             for (CourseModule module : modules) {
                     %>
-                        
+                        		
+                        		
                     
 		                    	<div class="course-module">
 									<h2 class="module-title">
 										<%= module.getModuleTitle() %>
 										
 										
-										<span onclick="createMaterialForm(<%= module.getModuleID() %>)"  class="add-course-module"
-											><ion-icon name="add-outline"></ion-icon
-										></span>
+										<span  class="add-course-module-material"
+											><ion-icon name="add-outline" id="<%= module.getModuleID() %>"></ion-icon
+										>
+											<div id="<%= module.getModuleID() %>" class="add-task hidden">
+												<p class="add-material" onclick="createMaterialForm(<%= module.getModuleID() %>)">
+													<ion-icon name="bookmark-outline"></ion-icon>Material
+												</p>
+												<p class="add-assignment" onclick="assignmentCreationForm()">
+													<ion-icon name="document-outline"></ion-icon>Assignment
+												</p>
+												<p class="add-quiz">
+													<ion-icon name="help-outline"></ion-icon>Quiz
+												</p>
+											</div>
+										</span>
 				
 										<span  class="delete-course-module">
 											<ion-icon name="trash-outline"></ion-icon>
@@ -169,100 +183,8 @@
         </div>
     </div>
     
-    <script>
- // forms
-
-    const module_creation_form = document.querySelector(".module-creation-form");
- 	const add_course_module = document.querySelector(".add-course-module")
-    add_course_module.addEventListener("click", () => {
-    	console.log("clicked");
-    	module_creation_form.classList.toggle("hidden");
-    });
-    function createMaterialForm(moduleID) {
-    	console.log("created!")
-        // Create the main container for the form
-        var formContainer = document.createElement("div");
-        formContainer.classList.add("module-material-creation-form");
-
-        // Create the form element
-        var form = document.createElement("form");
-        form.action = "AddMaterialServlet";
-        form.method = "post";
-        form.enctype = "multipart/form-data";
-
-        // Create the hidden input for module ID
-        var moduleIDInput = document.createElement("input");
-        moduleIDInput.type = "hidden";
-        moduleIDInput.name = "module-id";
-        moduleIDInput.value = moduleID;
-
-        // Create the Material Name input
-        var materialNameLabel = document.createElement("label");
-        materialNameLabel.textContent = "Material Name";
-        var materialNameInput = document.createElement("input");
-        materialNameInput.type = "text";
-        materialNameInput.name = "material-name";
-
-        // Create the Description textarea
-        var descriptionLabel = document.createElement("label");
-        descriptionLabel.textContent = "Description";
-        var descriptionTextarea = document.createElement("textarea");
-        descriptionTextarea.name = "material-description";
-        descriptionTextarea.cols = "30";
-        descriptionTextarea.rows = "10";
-
-        // Create the Lecture Video File input
-        var lectureLabel = document.createElement("label");
-        lectureLabel.textContent = "Lecture Video File";
-        var lectureFileInput = document.createElement("input");
-        lectureFileInput.type = "file";
-        lectureFileInput.name = "lecture-file";
-
-        // Create the buttons container
-        var btnGroup = document.createElement("div");
-        btnGroup.classList.add("btn-group");
-
-        // Create the Add Material button
-        var submitButton = document.createElement("input");
-        submitButton.type = "submit";
-        submitButton.value = "Add Material";
-
-        // Create the Cancel button
-        var cancelButton = document.createElement("button");
-        cancelButton.type = "button";
-        cancelButton.textContent = "Cancel";
-        cancelButton.className = "btn-cancel";
-        cancelButton.onclick = () => destroyMaterialForm(); // Assuming cancel is a defined function
-
-        // Append all elements to the form
-        form.appendChild(moduleIDInput);
-        form.appendChild(materialNameLabel);
-        form.appendChild(materialNameInput);
-        form.appendChild(descriptionLabel);
-        form.appendChild(descriptionTextarea);
-        form.appendChild(lectureLabel);
-        form.appendChild(lectureFileInput);
-        btnGroup.appendChild(submitButton);
-        btnGroup.appendChild(cancelButton);
-        form.appendChild(btnGroup);
-
-        // Append the form to the main container
-        formContainer.appendChild(form);
-
-        // Append the main container to the desired parent element
-        var parentElement = document.querySelector(".course-module-group"); // Change this selector as needed
-        parentElement.appendChild(formContainer)
-        
-    	//course_group.insertBefore(formContainer)    
-    }
-
-
-    function destroyMaterialForm(){
-     	const formContainer = document.querySelector(".module-material-creation-form")
-     	formContainer.remove()
-    }
-    </script>
-    <!-- <script src="${pageContext.request.contextPath}/admin-pages/admin-course-module.script.js"></script>-->
+  
+<script src="${pageContext.request.contextPath}/admin-pages/admin-course-module.script.js"></script>
 </body>
 
 

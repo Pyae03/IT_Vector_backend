@@ -37,7 +37,7 @@ public class AssignmentFileUploadServlet extends HttpServlet {
             String assignmentName = request.getParameter("assignmentName");
             
             // moudle id 
-            int moduleID = Integer.parseInt(request.getParameter("get-module"));
+            int moduleID = Integer.parseInt(request.getParameter("get-module")); // oriignal for teacher pages
             
             System.out.println("");
             // Get the file part from the request
