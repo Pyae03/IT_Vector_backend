@@ -29,7 +29,7 @@ public class Quiz {
         
     }
     
-    public Quiz(int courseID, int moduleID, int quizID, String quizName, String description) {
+    public Quiz(int quizID, int courseID, int moduleID, String quizName, String description) {
     	this.courseID = courseID;
     	this.moduleID = moduleID;
     	this.quizID = quizID;
@@ -64,7 +64,7 @@ public class Quiz {
     }
 
     public int getModuleID() {
-        return moduleID;
+        return this.moduleID;
     }
 
     public void setModuleID(int moduleID) {
@@ -72,7 +72,7 @@ public class Quiz {
     }
 
     public String getQuizName() {
-        return quizName;
+        return this.quizName;
     }
 
     public void setQuizName(String quizName) {
@@ -80,7 +80,7 @@ public class Quiz {
     }
 
     public String getDescription() {
-        return description;
+        return this.description;
     }
 
     public void setDescription(String description) {

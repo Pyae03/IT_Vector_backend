@@ -78,7 +78,7 @@ public class CourseModuleDao {
     }
 
     // Delete a module
-    public boolean deleteModule(int moduleID) {
+    public static boolean deleteModule(int moduleID) {
         String sql = "DELETE FROM CourseModule WHERE moduleID = ?";
         try (
             Connection connection = DatabaseUtil.getConnection();

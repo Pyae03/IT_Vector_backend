@@ -61,17 +61,17 @@ body {
 		font-size: 1.1em;
 		border-radius: var(--btn-border-radius);
 	}
-
+	.btn-function {
+		display: flex;
+	}
 	/* course moudle group  */
 	.course-module-group {
 		display: flex;
 		flex-direction: column;
 		gap: 1em;
+
 	}
 	.course-module {
-		display: flex;
-		flex-direction: column;
-		gap: 1em;
 		border: 1px solid var(--light-gray2);
 		background-color: var(--light-gray);
 	}
@@ -97,7 +97,10 @@ body {
 		gap: 2em;
 		background-color: var(--white-color);
 	}
-
+	.expand-module {
+		position: absolute;
+		left: 0;
+	}
 	.module-outline a {
 		background-color: var(--white-color);
 	}
@@ -157,9 +160,45 @@ body {
 	.btn-group {
 		display: flex;
 		gap: 1em;
+		align-items: center;
 	}
 	.btn-group button {
 		font-size: 1.1em;
+	}
+
+	.add-course-module-material {
+	}
+	.add-task {
+		border: 1px solid red;
+		display: flex;
+		flex-direction: column;
+		gap: 0.8em;
+		padding: 1em;
+		position: absolute;
+
+		z-index: 1;
+		left: -2em;
+		border-radius: 0.2em;
+		background-color: var(--white-color);
+
+		animation: dropDown 0.3s;
+	}
+	@keyframes dropDown {
+		from {
+			transform: scale(0);
+		}
+		to {
+			transform: scale(1);
+		}
+	}
+	.add-task p {
+		display: flex;
+		font-size: 0.8em;
+	}
+	.add-task p:hover {
+		transform: scale(1.05);
+		transition: transform 0.3s ease;
+		background-color: var(--light-blue);
 	}
 
 	/* all forms */
@@ -320,6 +359,8 @@ body {
 		align-items: center;
 		gap: 1em;
 	}
+	
+	
 
 	/* helper css */
 	.hidden {

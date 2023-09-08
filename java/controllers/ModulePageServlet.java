@@ -58,8 +58,8 @@ public class ModulePageServlet extends HttpServlet {
                 //QUIZ
                 
                 List<Quiz> quizes = QuizDao.getAllQuizzes();
-                for(Quiz quiz: quizes)
-                	System.out.println("QuizID: " + quiz.getModuleID() + " QuizName" + quiz.getQuizID());
+                //for(Quiz quiz: quizes)
+                //	System.out.println("moduleID: " + quiz.getModuleID() + " QuizName" + quiz.getQuizID() + " QuizID: " + quiz.getQuizID());
                 session.setAttribute("quizes", quizes);
 
                 request.getRequestDispatcher("admin-pages/admin-course-module.jsp").forward(request, response);

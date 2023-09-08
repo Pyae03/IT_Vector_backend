@@ -26,6 +26,7 @@
                 <button><a href="">Back</a></button>
             </div>
             <div class="btn-function">
+				<button class="add-quiz-question">Add Quiz Question</button>
                 <button class="add-course-module">Add Module</button>
             </div>
         </nav>
@@ -38,6 +39,8 @@
                 <input type="submit" value="Add New Module" />
             </form>
         </div>
+        
+        
 
 <!--  here repaste form meterial -->
 
@@ -57,10 +60,11 @@
                         		
                     
 		                    	<div class="course-module">
+		                    	
 									<h2 class="module-title">
 										<%= module.getModuleTitle() %>
-										
-										
+																			
+
 										<span  class="add-course-module-material"
 											><ion-icon name="add-outline" id="<%= module.getModuleID() %>"></ion-icon
 										>
@@ -172,7 +176,7 @@
 											    %>
 										
 					                    	</div>
-									
+									</div>
                     
                     
                     <%

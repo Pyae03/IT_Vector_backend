@@ -79,7 +79,7 @@
 					</div>
 
 					<div class="outer-4 active">
-						<a href="teacher-create-task.html">
+						<a href="teacher-course.html">
 							<div class="element">
 								<img
 									src="image/upload-file.svg"
@@ -145,7 +145,7 @@
 
 		function createCourseCard(courseCode, courseName, teacher, courseId) {
 			const courseCard = document.createElement("a");
-			courseCard.href = `http://localhost:8080/IT_Vector_Ver1/AssignmentPageServlet?courseId=${courseId}`; // Add the href attribute here
+			courseCard.href = `http://localhost:8080/IT_Vector_Ver1/ModulePageServlet?courseId=${courseId}`; // Add the href attribute here
 			courseCard.classList.add("course-card");
 
 			const innerDiv = document.createElement("div");

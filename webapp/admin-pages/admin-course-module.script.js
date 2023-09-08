@@ -409,6 +409,13 @@ function quizCreationForm(moduleID) {
     mainQuizWrapper.appendChild(form);
 
     document.body.appendChild(mainQuizWrapper);
+    
+    // close
+    const quizForm = document.querySelector(".main-quiz-wrapper")
+    closeButtonMainQuiz.addEventListener("click", () => {
+		
+		quizForm.style.display = "none"
+		})
 }
 
 

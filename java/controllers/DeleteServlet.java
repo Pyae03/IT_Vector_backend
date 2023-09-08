@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.AssignmentDao;
+import dao.CourseModuleDao;
 import dao.CourseModuleMaterialDao;
 import dao.QuizDao;
 
@@ -62,6 +63,14 @@ public class DeleteServlet extends HttpServlet {
 				// go to another link
 			}
 		}break;
+		case "courseModule" : {
+			int moduleID = Integer.parseInt(request.getParameter("moduleID"));
+			boolean success = CourseModuleDao.deleteModule(moduleID);
+			if(success) {
+				System.out.println("MATERIAL!");
+				// go to another link
+			}
+		}
 		
 		default: System.out.println("ERROR!");
 		}
