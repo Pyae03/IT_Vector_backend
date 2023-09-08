@@ -68,10 +68,10 @@
 												<p class="add-material" onclick="createMaterialForm(<%= module.getModuleID() %>)">
 													<ion-icon name="bookmark-outline"></ion-icon>Material
 												</p>
-												<p class="add-assignment" onclick="assignmentCreationForm()">
+												<p class="add-assignment" onclick="assignmentCreationForm(<%= module.getModuleID() %>)">
 													<ion-icon name="document-outline"></ion-icon>Assignment
 												</p>
-												<p class="add-quiz">
+												<p class="add-quiz" onclick="quizCreationForm(<%= module.getModuleID() %>)">
 													<ion-icon name="help-outline"></ion-icon>Quiz
 												</p>
 											</div>

@@ -42,11 +42,13 @@ public class QuizDao {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
+            	int courseID = resultSet.getInt("courseID");
+            	int moduleID = resultSet.getInt("moduleID");
                 int quizID = resultSet.getInt("quizID");
                 String quizName = resultSet.getString("quizName");
                 String description = resultSet.getString("description");
 
-                Quiz quiz = new Quiz(quizID, quizName, description);
+                Quiz quiz = new Quiz(quizID, courseID, moduleID, quizName, description);
                 quizzes.add(quiz);
             }
         }

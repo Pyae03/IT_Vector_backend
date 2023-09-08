@@ -191,7 +191,7 @@ add_course_module_material.forEach(material => {
 
 
 //ASSIGNMENT CREATION FORM
-function assignmentCreationForm() {
+function assignmentCreationForm(moduleID) {
     const assignmentWrapper = document.createElement("div");
     assignmentWrapper.classList.add("assignment-wrapper");
 
@@ -285,7 +285,7 @@ function assignmentCreationForm() {
 
     const getModuleInput = document.createElement("input");
     getModuleInput.setAttribute("type", "text");
-    getModuleInput.setAttribute("value", "get moudle id");
+    getModuleInput.setAttribute("value", moduleID);
     getModuleInput.setAttribute("name", "get-module");
     getModuleInput.style.display = "none";
 
@@ -314,7 +314,7 @@ function assignmentCreationForm() {
 		})
 }
 // QUIZ CREATION FORM
-function quizCreationForm() {
+function quizCreationForm(moduleID) {
     const mainQuizWrapper = document.createElement("div");
     mainQuizWrapper.classList.add("main-quiz-wrapper");
 
@@ -391,7 +391,7 @@ function quizCreationForm() {
 
     const getModuleInput = document.createElement("input");
     getModuleInput.setAttribute("type", "text");
-    getModuleInput.setAttribute("value", "getmoudle id");
+    getModuleInput.setAttribute("value", moduleID);
     getModuleInput.setAttribute("name", "get-module");
     getModuleInput.style.display = "none";
 
@@ -411,8 +411,6 @@ function quizCreationForm() {
     document.body.appendChild(mainQuizWrapper);
 }
 
-// Call the function to create the DOM elements
-quizCreationForm();
 
 
 

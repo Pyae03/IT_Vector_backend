@@ -35,8 +35,8 @@ public class AddMaterialServlet extends HttpServlet {
             Part filePart = request.getPart("lecture-file");
 
             // Get the real path of the web application
-            ServletContext context = getServletContext();
-            String uploadDirectory = context.getRealPath("/WEB-INF");
+            //ServletContext context = getServletContext(); context.getRealPath("/WEB-INF");
+            String uploadDirectory = "C:\\projectFiles";
 
             // Ensure the directory exists; create it if necessary
             File uploadDir = new File(uploadDirectory);

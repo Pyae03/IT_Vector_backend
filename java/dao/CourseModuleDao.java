@@ -51,10 +51,7 @@ public class CourseModuleDao {
                 
                 CourseModule courseModule = new CourseModule(moduleID, courseID, moduleTitle);
                 courseModule.setCourseModuleMaterialList(allMaterials);
-                for(CourseModuleMaterial cm : allMaterials) {
-                	System.out.println("material: " + cm.toString());
-                }
-                System.out.println("module: " + courseModule.toString());
+               
                 modules.add(courseModule);
             }
         } catch (SQLException e) {

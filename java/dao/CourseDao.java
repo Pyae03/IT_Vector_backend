@@ -32,7 +32,7 @@ public class CourseDao {
                     course.setStartDate(resultSet.getDate("startDate"));
                     course.setEndDate(resultSet.getDate("endDate"));
 
-                    System.out.println("course: " + course);
+                    
                     courses.add(course);
                 }
             } catch (SQLException e) {

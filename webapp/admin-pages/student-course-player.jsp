@@ -33,11 +33,9 @@
 		<div class="container">
 			<div class="video-and-content">
 				<div class="video-player">
-					<video controls>
-						<source
-							src="<%= request.getAttribute("videoFilePath") %>"
-							type="video/mp4" />
-					</video>
+				http://localhost:8081/Attack%20on%20Titan%20S4%20OST%20-%20-Splinter%20Wolf-.mp4" type="video/mp4
+
+					<video controls src="<%= request.getAttribute("videoFilePath") %>"></video>
 				</div>
 				<div class="content">
 					<h2>Title</h2>

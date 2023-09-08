@@ -79,14 +79,14 @@ public class CourseModuleMaterialDao {
             resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
-                // Create a CourseModuleMaterial object from the result set
+                
                 material = new CourseModuleMaterial();
                 material.setMaterialID(Integer.parseInt(resultSet.getString("materialID")) );
                 material.setModuleID(Integer.parseInt(resultSet.getString("moduleID")));
                 material.setMaterialName(resultSet.getString("materialName"));
                 material.setMaterialDescription(resultSet.getString("materialDescription"));
                 material.setFilePath(resultSet.getString("filePath"));
-                // set other properties as needed
+                
             }
         } catch(Exception e) {
         	

@@ -33,9 +33,16 @@ public class CoursePlayerServlet extends HttpServlet {
 
             // Set the material as an attribute in the request so that the JSP can access it
             request.setAttribute("courseMaterial", material);
-            request.setAttribute("videoFilePath", material.getFilePath());
-            // Forward the request to the JSP for rendering
-            //response.sendRedirect("admin-pages/admin-courses.html");
+            
+            // video file path
+            System.out.println("vidoe file path: " + material.getFilePath());
+            String filePath = material.getFilePath();
+            String serverFilePath = filePath.substring(16, filePath.length());
+            System.out.println("actual file path: " + serverFilePath);
+            
+            request.setAttribute("videoFilePath", "http://localhost:8081/" + serverFilePath);
+            
+            
             RequestDispatcher dispatcher = request.getRequestDispatcher("admin-pages/student-course-player.jsp");
             dispatcher.forward(request, response);
         } catch (Exception e) {

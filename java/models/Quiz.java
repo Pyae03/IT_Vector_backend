@@ -28,6 +28,14 @@ public class Quiz {
         this.description = description;
         
     }
+    
+    public Quiz(int courseID, int moduleID, int quizID, String quizName, String description) {
+    	this.courseID = courseID;
+    	this.moduleID = moduleID;
+    	this.quizID = quizID;
+    	this.quizName = quizName;
+    	this.description = description;
+    }
 
     public Quiz(int quizID, int courseID, int moduleID, String quizName, String description, int timeLimit) {
         this.quizID = quizID;

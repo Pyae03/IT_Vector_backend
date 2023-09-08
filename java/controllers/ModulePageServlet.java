@@ -51,13 +51,15 @@ public class ModulePageServlet extends HttpServlet {
                 request.setAttribute("modules", modules);
 
                 // ASSIGNMENT
-               AssignmentDao assignmentDao = new AssignmentDao();
-               List<Assignment> assignments = assignmentDao.getAllAssignments();
+               
+               List<Assignment> assignments = AssignmentDao.getAllAssignments();
                 session.setAttribute("assignments", assignments);
                 
                 //QUIZ
-                QuizDao quizDao = new QuizDao();
-                List<Quiz> quizes = quizDao.getAllQuizzes();
+                
+                List<Quiz> quizes = QuizDao.getAllQuizzes();
+                for(Quiz quiz: quizes)
+                	System.out.println("QuizID: " + quiz.getModuleID() + " QuizName" + quiz.getQuizID());
                 session.setAttribute("quizes", quizes);
 
                 request.getRequestDispatcher("admin-pages/admin-course-module.jsp").forward(request, response);
