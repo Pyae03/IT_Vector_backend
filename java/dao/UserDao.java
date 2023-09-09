@@ -254,5 +254,25 @@ public class UserDao {
     }
 
 
+    public static boolean userExists(String userID) {
+        try (Connection connection = DatabaseUtil.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(
+                "SELECT COUNT(*) FROM user WHERE userID = ?"
+             )) {
+            preparedStatement.setString(1, userID);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    int count = resultSet.getInt(1);
+                    return count > 0; 
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            
+        }
+
+        return false; 
+    }
 
 }

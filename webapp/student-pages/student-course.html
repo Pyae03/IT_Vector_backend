@@ -115,7 +115,7 @@ fetch('http://localhost:8080/IT_Vector_Ver1/CourseApiServlet', fetchOptions)
     
     function createCourseCard(courseCode, courseName, teacher, courseId) {
     const courseCard = document.createElement('a');
-    courseCard.href = `http://localhost:8080/IT_Vector_Ver1/ModulePageServlet?courseId=${courseId}`; // Add the href attribute here
+    courseCard.href = `http://localhost:8080/IT_Vector_Ver1/StudentModulePageServlet?courseId=${courseId}`; // Add the href attribute here
     courseCard.classList.add('course-card');
 
     const innerDiv = document.createElement('div');

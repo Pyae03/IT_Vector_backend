@@ -46,6 +46,7 @@ public class LoginServlet extends HttpServlet {
 				int sessionTimeOut = 7 * 24 * 60 * 60;
 				session.setMaxInactiveInterval(sessionTimeOut);
 				
+				System.out.println("userID: " + currentLoginUser.getUserID());
 				
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0" />
+				<link
+					rel="stylesheet"
+					href="course.style.css" />
+				<meta charset="UTF-8" />
+				<meta
+					name="viewport"
+					content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+
+			<body>
+				<div class="container">
+					<nav>
+						<div class="logo-div">
+							<img
+								src="image/logo.svg"
+								alt="" />
+							<h2>IT_Vector</h2>
+						</div>
+						<div class="menu-link">
+							<a href="home.html">Home</a>
+							<a href="course.html">Course</a>
+							<a href="about.html">About</a>
+							<a href="contact.html">Contact</a>
+						</div>
+						<div class="sign-in-up">
+							<a href="../login.jsp"> Sign In </a>
+							<a href="../register.jsp"> Sign Up </a>
+						</div>
+					</nav>
+
+					<div class="course-group">
+						
+					</div>
+				</div>
+			</body>
+			
+			
+		<script>
+				
+const courseGroup = document.querySelector('.course-group'); // Replace with the actual container element where you want to add the course cards
+
+		const fetchOptions = {
+    method: 'GET',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+};
+
+// Fetch data from the servlet
+fetch('http://localhost:8080/IT_Vector_Ver1/CourseApiServlet', fetchOptions)
+    .then(response => response.json()) // Parse the JSON response
+    .then(courses => {
+		console.log("courses: ", courses)
+		// current is teacher id not teacher name.
+		// fix: teacher id to teacher name.
+		courses.forEach(course => createCourseCard(course.courseCode, course.courseName, course.teacher, course.courseId))		
+       
+	}
+       
+           
+  ).catch(error => {
+        console.error('Error fetching data:', error);
+    });
+  
+    
+    function createCourseCard(courseCode, courseName, teacher, courseId) {
+    const courseCard = document.createElement('a');
+    courseCard.href = `http://localhost:8080/IT_Vector_Ver1/CourseDetailPageServlet?courseId=${courseId}`; // Add the href attribute here
+    courseCard.classList.add('course-card');
+
+    const innerDiv = document.createElement('div');
+
+    const titleDiv = document.createElement('div');
+    titleDiv.classList.add('course-card-title');
+
+    const courseCodeHeading = document.createElement('h3');
+    courseCodeHeading.textContent = courseCode;
+
+    const courseNameHeading = document.createElement('h2');
+    courseNameHeading.textContent = courseName;
+
+    titleDiv.appendChild(courseCodeHeading);
+    titleDiv.appendChild(courseNameHeading);
+
+    const teacherDiv = document.createElement('div');
+    teacherDiv.classList.add('teacher');
+
+    const teacherName = document.createElement('p');
+    teacherName.textContent = teacher;
+
+    teacherDiv.appendChild(teacherName);
+    
+    innerDiv.appendChild(titleDiv);
+    innerDiv.appendChild(teacherDiv);
+
+    courseCard.appendChild(innerDiv);
+
+    // add click function to courseCard
+    courseCard.addEventListener("click", (e) => {
+        
+        courseCard.style.backgroundColor = "red"
+        console.log(courseCard)
+    })
+
+    return courseGroup.appendChild(courseCard);
+}
+
+
+
+
+
+
+	</script>
+		
+	</html>
+	

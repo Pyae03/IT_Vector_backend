@@ -1,0 +1,176 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400&family=Nunito:wght@200;300;400&display=swap");
+
+:root {
+	--bg-color: #eff3f9;
+	--white-color: #fff;
+	--light-purple: #9db7fb;
+	--light-blue: #60b9ff;
+	--dark-blue: #283747;
+	--light-gray: #eaecee;
+	--btn-border-radius: 0.5em;
+	--light-gray2: #d5d8dc;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+img,
+picture,
+svg,
+video {
+	display: block;
+	max-width: 100%;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	font-family: "Nunito", "Lato";
+	color: #283747;
+}
+
+body {
+	min-height: 100vh;
+}
+
+nav {
+	top: 0;
+	width: 100%;
+	padding: 1em 2em;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background-color: var(--white-color);
+	font-weight: bold;
+}
+nav * {
+	color: var(--light-blue);
+}
+.menu-link {
+	display: flex;
+	gap: 3em;
+}
+img {
+	width: 40px;
+}
+.logo-div {
+	display: flex;
+	align-items: center;
+	gap: 1em;
+}
+a,
+.logo-div > h2 {
+	text-decoration: none;
+	font-size: 1.3em;
+	position: relative;
+}
+.sign-in-up {
+	display: flex;
+	gap: 1em;
+	padding: 0.5em 1em;
+	align-items: center;
+}
+.sign-in-up a:last-child {
+	border: 1px solid var(--light-blue);
+	padding: 0.2em 0.5em;
+	border-radius: var(--btn-border-radius);
+}
+.sign-in-up a:last-child::after {
+	display: none;
+}
+
+a::after {
+	content: "";
+	transform-origin: left;
+	background-color: var(--light-purple);
+	height: 2px;
+	bottom: -4px;
+	position: absolute;
+
+	margin: 0 auto;
+	left: 0;
+	right: 0;
+	width: 0%;
+	transition: 0.3s ease;
+}
+.container nav div > a:hover::after {
+	width: 100%;
+	transform-origin: right;
+	transition: 0.3s ease;
+}
+
+body {
+	background: var(--bg-color);
+	font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+}
+.container {
+	width: 1000px;
+	height: 700px;
+	margin: 20px auto;
+	display: flex;
+	background: white;
+	border-radius: 10px;
+	box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+.login {
+	width: 500px;
+}
+form {
+	width: 230px;
+	margin: 100px auto;
+}
+form h1 {
+	text-align: center;
+	text-transform: uppercase;
+	font-weight: bolder;
+}
+
+form label {
+	display: block;
+	font-size: 16px;
+	font-weight: 600;
+	padding: 8px;
+	transition: all 0.3s ease;
+}
+input,
+textarea {
+	display: flex;
+	width: 100%;
+	padding: 8px;
+	margin: 8px;
+	outline: none;
+	border: none;
+	border-bottom: 1px solid rgb(215, 9, 9);
+}
+
+::placeholder {
+	color: #fff;
+}
+button {
+	width: 250px;
+	margin: 8px;
+	padding: 8px;
+	background: rgb(241, 72, 78);
+	outline: none;
+	border: none;
+	border-radius: 20px;
+	color: white;
+	font-size: 17px;
+	cursor: pointer;
+}
+button:hover {
+	padding-right: 50px;
+	background-color: orange;
+}
+
+.pic {
+	width: 50%;
+}
+
+.pic img {
+	width: 100%;
+	height: 100%;
+}
