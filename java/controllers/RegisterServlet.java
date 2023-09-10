@@ -37,10 +37,11 @@ public class RegisterServlet extends HttpServlet {
 			System.out.println("userCreated: " + userCreated);
 			if (userCreated) {
 				// Redirect to 
-				response.sendRedirect("user-list.jsp");
+				response.sendRedirect("login.jsp");
+				
 			} else {                     
 				// Redirect to 
-				response.sendRedirect("/user-auth/login.jsp");
+				response.sendRedirect("register.jsp");
 			}
 
 		} catch (ParseException e) {                                                                                           

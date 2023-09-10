@@ -58,9 +58,9 @@ public class LoginServlet extends HttpServlet {
             // for role Student, Teacher, Admin
         	switch(role) {
         	//case "Student": response.sendRedirect("student-pages/student-dashboard.html"); break;
-        	case "Student": response.sendRedirect("user-profile/user-profile.jsp"); break;
-        	case "Teacher": response.sendRedirect("student-dashboard.jsp"); break;
-        	case "Admin": response.sendRedirect("student-dashboard.jsp"); break;        	}
+        	case "Student": response.sendRedirect("student-pages/student-dashboard.html"); break;
+        	case "Teacher": response.sendRedirect("teacher-pages/teacher-course.html"); break;
+        	case "Admin": response.sendRedirect("admin-pages/admin-dashboard.jsp"); break;        	}
             // Redirect
             //response.sendRedirect("dashboard.jsp");
         } else {
@@ -92,9 +92,7 @@ public class LoginServlet extends HttpServlet {
             }
             return false;
 
-            	//System.out.println("role: " + resultSet.getString("UserRole"));
-
-            //return resultSet.next(); // If a row is found, the user is valid
+     
         } catch (SQLException e) {
             e.printStackTrace();
             return false;

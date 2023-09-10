@@ -62,7 +62,7 @@ public class CourseModuleMaterialDao {
     }
 
     
-    public CourseModuleMaterial getMaterialByID(String materialID) throws SQLException {
+    public static CourseModuleMaterial getMaterialByID(int materialID) throws SQLException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -74,7 +74,7 @@ public class CourseModuleMaterialDao {
 
             String query = "SELECT * FROM CourseModuleMaterial WHERE materialID=?";
             preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(1, materialID);
+            preparedStatement.setInt(1, materialID);
 
             resultSet = preparedStatement.executeQuery();
 

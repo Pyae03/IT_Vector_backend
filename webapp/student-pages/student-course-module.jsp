@@ -23,12 +23,9 @@
     <div class="container">
         <nav>
             <div class="back">
-                <button><a href="">Back</a></button>
+                <button><a href="student-pages/student-course.html">Back</a></button>
             </div>
-            <div class="btn-function">
-				<button class="add-quiz-question">Add Quiz Question</button>
-                <button class="add-course-module">Add Module</button>
-            </div>
+            
         </nav>
 
         <!-- module creation form -->

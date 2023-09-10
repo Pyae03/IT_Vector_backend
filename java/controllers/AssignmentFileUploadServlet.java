@@ -23,7 +23,7 @@ public class AssignmentFileUploadServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String uploadDirectory = "C:\\Eclipse\\fileStore"; // Replace with the actual directory path
+        String uploadDirectory = "C:\\projectFiles\\assignmentSubmission"; // Replace with the actual directory path
 
         
         // Ensure the directory exists; create it if necessary

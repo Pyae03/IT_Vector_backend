@@ -118,4 +118,25 @@ public class CourseModuleDao {
         return modules;
     }
     
+    public static CourseModule getModuleByID(int moduleID) {
+        CourseModule module = null;
+        String sql = "SELECT * FROM CourseModule WHERE moduleID = ?";
+        try (
+            Connection connection = DatabaseUtil.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql)
+        ) {
+            preparedStatement.setInt(1, moduleID);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                int courseID = resultSet.getInt("courseID");
+                String moduleTitle = resultSet.getString("moduleTitle");
+                
+                module = new CourseModule(moduleID, courseID, moduleTitle);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return module;
+    }
+    
 }

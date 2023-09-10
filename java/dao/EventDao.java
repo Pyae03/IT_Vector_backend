@@ -13,7 +13,7 @@ import util.DatabaseUtil;
 public class EventDao {
 
     // Insert 
-    public boolean createEvent(Event event) {
+    public static boolean createEvent(Event event) {
         try (Connection connection = DatabaseUtil.getConnection()) {
             String sql = "INSERT INTO Event (eventTitle, eventDate, eventType, eventDescription) VALUES (?, ?, ?, ?)";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);

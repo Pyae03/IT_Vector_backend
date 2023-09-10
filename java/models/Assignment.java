@@ -16,6 +16,12 @@ public class Assignment {
         this.moduleID = moduleID;
     }
     
+    public Assignment(int assignmentID, String assignmentName, String assignmentFilePath) {
+    	this.assignmentID = assignmentID;
+        this.assignmentName = assignmentName;
+        this.assignmentFilePath = assignmentFilePath;
+       // this.moduleID = moduleID;
+    }
     public Assignment(int assignmentID, String assignmentName, String assignmentFilePath, int moduleID) {
     	this.assignmentID = assignmentID;
         this.assignmentName = assignmentName;

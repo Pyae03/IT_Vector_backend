@@ -1,4 +1,4 @@
-package controllers;
+package page;
 
 import java.io.IOException;
 import java.util.List;

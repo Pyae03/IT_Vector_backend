@@ -1,4 +1,4 @@
-package controllers;
+package page;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -18,8 +18,8 @@ import models.CourseModule;
 import models.Quiz;
 import models.User;
 
-@WebServlet("/CourseDetailPageServlet")
-public class CourseDetailPageServlet extends HttpServlet {
+@WebServlet("/ModulePageServlet")
+public class ModulePageServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -27,7 +27,6 @@ public class CourseDetailPageServlet extends HttpServlet {
 
         String courseIdStr = request.getParameter("courseId");
 
-        System.out.println("courseid corseDeail: " + courseIdStr);
         if (courseIdStr != null) {
             try {
 
@@ -37,7 +36,12 @@ public class CourseDetailPageServlet extends HttpServlet {
 
                 HttpSession session = request.getSession();
                 session.setAttribute("courseID", courseId);
+                //session.setMaxInactiveInterval(60 * 60 * 60);
                 
+                User currentUser  = (User) session.getAttribute("user");
+                //	System.out.println("current User:" + currentUser);
+                //	System.out.println("username: " + currentUser.getUsername());
+                //	System.out.println("userRole: " + currentUser.getUserRole());
                 
                 
                 // Get course modules for the specified courseId
@@ -57,13 +61,17 @@ public class CourseDetailPageServlet extends HttpServlet {
                 
                 session.setAttribute("quizes", quizes);
 
-                request.getRequestDispatcher("home-page/course-detail.jsp").forward(request, response);
-            } catch (NumberFormatException | SQLException e) {
+                if(currentUser.getUserRole() == "Teacher") {
+                	request.getRequestDispatcher("teacher-pages/teacher-course.html").forward(request, response);
+                }
                 
+                request.getRequestDispatcher("admin-pages/admin-course-module.jsp").forward(request, response);
+            } catch (NumberFormatException | SQLException e) {
+                // Handle the case where courseId is not a valid integer
                 response.sendRedirect("error-page.jsp"); // Redirect to an error page
             }
         } else {
-
+            // Handle the case where courseId parameter is missing
             response.sendRedirect("error-page.jsp"); // Redirect to an error page
         }
     }

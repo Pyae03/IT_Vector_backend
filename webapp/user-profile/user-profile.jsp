@@ -38,6 +38,8 @@
                 <p>Designer</p>
             </div>
         </div>
+        
+        
     </div>
 
     <div class="bio card">

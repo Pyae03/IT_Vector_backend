@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import dao.EventDao;
 import models.Event;
+import java.sql.Date;
+import java.text.ParseException;
 
 @WebServlet("/EventCreateApiServlet")
 public class EventCreateApiServlet extends HttpServlet {
@@ -18,41 +20,22 @@ public class EventCreateApiServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     	
-    	// Set CORS headers
-        response.setHeader("Access-Control-Allow-Origin", "*"); // Allow requests from any origin (you can restrict it to specific origins)
-        response.setHeader("Access-Control-Allow-Methods", "POST"); // Allow only GET requests
-        response.setHeader("Access-Control-Allow-Headers", "Content-Type"); // Allow specified headers
-        response.setContentType("application/json");
-
-     // this is constant
-        // Read JSON data from the request
-        BufferedReader reader = request.getReader();
-        StringBuilder jsonInput = new StringBuilder();
-        String line;
-        while ((line = reader.readLine()) != null) {
-            jsonInput.append(line);
-        }
-
-        System.out.println("enter suer: " + jsonInput);
-        
-        try {
-            Gson gson = new Gson();
-            Event event = gson.fromJson(jsonInput.toString(), Event.class);
-            System.out.println(event.toString());
-           
-            boolean success = eventDao.createEvent(event);
-            // create event work but fix the error
-            if(success) {
-            	System.out.println("success");
-            	//RequestDispatcher rd = request.getRequestDispatcher("admin-event");
-            	//response.sendRedirect("admin-evenet.html");
-            }
+    	String eventTitle = request.getParameter("event-title");
+    	String eventDate = request.getParameter("event-date");
+    	String eventType = request.getParameter("event-type");
+    	String eventDesc = request.getParameter("event-desc");
+    	
+    	Date eventD;
+		try {
+			eventD = Event.formatDate(eventDate);
+			Event event = new Event(eventTitle, eventD, eventType, eventDesc);
+			EventDao.createEvent(event);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
             
-            response.getWriter().println("Event created successfully.");
-            
-        } catch (Exception e) {
-            e.printStackTrace();
-            response.getWriter().println("Error occurred while creating the event.");
-        }
+       
     }
 }

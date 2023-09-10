@@ -5,6 +5,7 @@
 <%@ page import="models.Category" %>
 <%@ page import="models.Quiz" %>
 <%@ page import="models.Assignment" %>
+<%@ page import="models.User" %>
 <%@ page import="java.util.List" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,7 +24,15 @@
     <div class="container">
         <nav>
             <div class="back">
-                <button><a href="">Back</a></button>
+            <%	User currentUser = (User) session.getAttribute("user");
+            	String url = "admin-pages/admin-courses.html";
+            	if(currentUser.getUserRole() == "Teacher") {
+            		url = "teacher-pages/teacher-course.html";
+            
+               	    }
+            %>
+                <button><a href="<%= url %>">Go Back</a></button>
+            		<%= currentUser.getEmail() %>">
             </div>
             <div class="btn-function">
 				<button class="add-quiz-question">Add Quiz Question</button>

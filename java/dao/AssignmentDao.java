@@ -114,6 +114,33 @@ public class AssignmentDao {
         }
         return assignments;
     }
+    
+    public static Assignment getAssignmentByID(int assignmentID) {
+    	String sql = "SELECT * FROM Assignment WHERE assignmentID = ?";
+    	
+    	Assignment assignment = null;
+    	try (
+                Connection connection = DatabaseUtil.getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(sql)
+            ) {
+    			preparedStatement.setInt(1, assignmentID);
+                ResultSet resultSet = preparedStatement.executeQuery();
+
+                
+                while (resultSet.next()) {
+                	int assignmentID1 = resultSet.getInt("assignmentID");
+                    String assignmentName = resultSet.getString("assignmentName");
+                    String assignmentFilePath = resultSet.getString("assignmentFilePath");
+                    int moduleID = resultSet.getInt("moduleID");
+                    
+                    assignment = new Assignment(assignmentID1, assignmentName, assignmentFilePath, moduleID);
+                   
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return assignment;
+    }
 
 	
 }

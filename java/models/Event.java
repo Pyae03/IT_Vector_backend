@@ -71,7 +71,7 @@ public class Event {
         this.eventDescription = eventDescription;
     }
     
-    public Date formatDate(Date date) throws ParseException {
+    public static Date formatDate(String date) throws ParseException {
 
 //		Date data = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");

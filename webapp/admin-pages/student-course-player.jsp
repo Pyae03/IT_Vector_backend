@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="models.CourseModule" %>
 <%@ page import="models.CourseModuleMaterial" %>
+<%@ page import="dao.CourseModuleMaterialDao" %>
+<%@ page import="java.util.List" %>
+<%@ page import="models.Category" %>
+<%@ page import="models.Quiz" %>
+<%@ page import="models.Assignment" %>
+<%@ page import="models.User" %>
 <%@ page import="java.util.List" %>
 
 <!DOCTYPE html>
@@ -17,107 +23,180 @@
 	</head>
 	<body>
 		<nav>
-			<a href="#">
-				<div class="teacher-profile">
-					<img
-						src="image/logo.svg"
-						alt="" />
-					<h3>Teacher Name</h3>
-				</div>
-			</a>
-			<a href="student-dashboard.html">
-				<h3>Back</h3>
+			
+			<a href="student-pages/student-course.html">
+				<h3>Go Back</h3>
 			</a>
 		</nav>
-
+		
+		<%
+			CourseModuleMaterial currentMaterial = (CourseModuleMaterial) request.getAttribute("currentMaterial");
+		%>
+	
 		<div class="container">
 			<div class="video-and-content">
 				<div class="video-player">
-				http://localhost:8081/Attack%20on%20Titan%20S4%20OST%20-%20-Splinter%20Wolf-.mp4" type="video/mp4
+				
 
 					<video controls src="<%= request.getAttribute("videoFilePath") %>"></video>
 				</div>
 				<div class="content">
 					<h2>Title</h2>
 					<p>
-						Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt
-						veritatis quisquam pariatur sint ducimus in cupiditate nam eligendi
-						unde, consectetur, officia ratione quo a commodi quaerat
-						perspiciatis! Debitis, praesentium odio. Vero, officia similique?
-						Provident dolores aut maiores quaerat, iste voluptas in ex
-						perferendis temporibus nemo nesciunt distinctio eius dicta
-						similique, vitae qui voluptatibus culpa assumenda totam eos? Veniam,
-						nemo dolore! Quis, dolores eos quisquam necessitatibus, id doloribus
-						aperiam facilis mollitia veniam nam vero voluptatibus, nulla rem
-						incidunt vitae quidem sunt velit similique illo dignissimos tempora
-						libero delectus. Consectetur, iure eaque.
+						<%= currentMaterial.getMaterialDescription() %>
 					</p>
 				</div>
 			</div>
 
-			<div class="view-course-module">
-				<div class="course-module-group">
-					<div class="course-module">
-						<h2 class="module-title">Introduction to Web Development</h2>
-						<div class="module-outline">
-							<a
-								href=""
-								class="done"
-								>What is web Development?</a
-							>
-							<a href="">What is web Development?</a>
-							<a href="">What is web Development?</a>
-						</div>
-					</div>
-				</div>
-			</div>
+			
+				<!-- -------------------------------------------------------- -->
+	<div class="view-course-module">
+        <!-- course module section -->
+        <div class="course-module-group">
+            
+                    <!-- Loop through CourseModules and display them in the table -->
+                    <%
+                        List<CourseModule> modules = (List<CourseModule>) request.getAttribute("modules");
+                        if (modules != null) {
+                            for (CourseModule module : modules) {
+                    %>
+                        		
+                        		
+                    
+		                    	<div class="course-module">
+		                    	
+									<h2 class="module-title" id="module-title-<%= module.getModuleID() %>">
+										<%= module.getModuleTitle() %>
+																			
+
+										<%= module.getModuleID() %>
+									</h2>
+									
+									<!-- for id for js -->
+									<!--<span style="display:none"><%= module.getModuleID() %> </span>-->
+									
+									<!-- <div class="module-outline">  add one </div> at the end of "%>" -->
+									<div class="module-outline" id="module-outline-<%= module.getModuleID() %>">
+										<!-- query each material here -->
+										<%
+				                        List<CourseModuleMaterial> moduleMaterials = module.getCourseModuleMaterialList();
+				                        if (moduleMaterials != null) {
+				                            for (CourseModuleMaterial material : moduleMaterials) {
+				                    %>
+											<div class="material">
+												<a
+													href="http://localhost:8080/IT_Vector_Ver1/CoursePlayerServlet?materialID=<%= material.getMaterialID() %>"
+													class=""
+													><span><ion-icon name="play-circle-outline"></ion-icon></span
+													><%= material.getMaterialName() %></a
+												>
+												
+											</div>
+					                     <%
+					                            }
+					                        }
+					                    %>
+				                    
+					                    
+					                    
+					                    <!-- QUIZ -->
+					                    <!-- <div class="module-outline"> -->
+					                    
+											<%
+												List<Quiz> quizes = (List<Quiz>) session.getAttribute("quizes");
+					                        if (modules != null) {
+					                            for (Quiz quiz : quizes) {
+					                            	if (quiz.getModuleID() == module.getModuleID()) {
+					                    	%>
+											<div class="material">
+												<a
+													href="http://localhost:8080/IT_Vector_Ver1/QuizServlet?quizID=<%= quiz.getQuizID() %>"
+													class=""
+													><span><ion-icon name="play-circle-outline"></ion-icon></span
+													><%= quiz.getQuizName() %></a
+												>
+												
+											</div>
+														
+												 <%
+					                            	}
+					                            }
+					                        }
+					                    	%>
+				                    	
+					                    	
+					                    	
+					                    	 <!-- QUIZ -->
+					                    	 <!-- <div class="module-outline"> -->
+				                    	
+											    <%
+											        List<Assignment> assignments = (List<Assignment>) session.getAttribute("assignments");
+											        if (assignments != null) {
+											            for (Assignment assignment : assignments) {
+											            	if(assignment.getModuleID() == module.getModuleID()) {
+											    %>
+											    <div class="material">
+											        <a href="http://localhost:8080/IT_Vector_Ver1/AssignmentPageServlet?assignmentID=<%= assignment.getAssignmentID() %>"
+											            class="">
+											            <span><ion-icon name="play-circle-outline"></ion-icon></span>
+											            <%= assignment.getAssignmentName() %>
+											        </a>
+											        
+											    </div>
+											    <%
+											            	}
+											            }
+											        }
+											    %>
+										
+					                    	</div>
+									</div>
+                    
+                    
+                    <%
+                            }
+                        }
+                    %>
+            </div>  	
+        </div>
+			
+			
 		</div>
+		
+		
 	</body>
 
-	<script>
-		const myArr = [1, 2, 3];
-		const linkArr = [1, 2];
+		<script>
+		
+    // Add event listeners to all module titles
+    
+    	
+	    const moduleTitles = document.querySelectorAll('.module-title');
+	    moduleTitles.forEach(moduleTitle => {
+	        moduleTitle.addEventListener('click', () => {
+	            // Get the module ID from the clicked title's ID
+	            console.log("clicked~")
+	            const moduleID = moduleTitle.id.replace('module-title-', '');
+	            console.log("moudleTitle: ", moduleTitle, moduleID)
+	            // find the  module outline to its module
+	            
+	            const moduleOutline = document.getElementById("module-outline-"+ moduleID);
+	            
+	            //console.log("moduleoutline: ", moduleOutline, moduleID, id)
+	            
+	            if (moduleOutline) {
+	                if (moduleOutline.style.display === 'none' || moduleOutline.style.display === '') {
+	                    moduleOutline.style.display = 'block';
+	                } else {
+	                    moduleOutline.style.display = 'none';
+	                }
+	            }
+	        });
+	    });
+    
+    console.log("started: ", moduleTitles)
+</script>
 
-		const course_module_group = document.querySelector(".course-module-group");
-
-		function createCourseModule(courseModuleID) {
-			const course_module = document.createElement("div");
-			course_module.className = "course-module";
-			course_module.id = courseModuleID;
-
-			const module_title = document.createElement("h2");
-			module_title.className = "module-title";
-			module_title.innerText = "hello world";
-
-			const module_outline = document.createElement("div");
-			module_outline.className = "module-outline";
-			module_outline.classList.add("hidden");
-			module_title.addEventListener("click", () => {
-				console.log("clicked");
-				module_outline.classList.toggle("hidden");
-			});
-
-			linkArr.forEach((link) => {
-				const course_link = createCourseLink(link);
-				module_outline.appendChild(course_link);
-			});
-			course_module.appendChild(module_title);
-			course_module.appendChild(module_outline);
-			return course_module;
-		}
-
-		function createCourseLink(link, text) {
-			const course_link = document.createElement("a");
-			course_link.href = link;
-			course_link.innerText = "TEXT";
-			return course_link;
-		}
-
-		myArr.forEach((course) => {
-			const course_module = createCourseModule(course);
-			console.log("created");
-
-			course_module_group.appendChild(course_module);
-		});
-	</script>
+		
+	
 </html>
